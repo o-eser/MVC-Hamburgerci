@@ -24,7 +24,4 @@ app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
 
-//comment ekleme
-//2.comment ekleme
-
 app.Run();
