@@ -7,16 +7,12 @@ using System.Threading.Tasks;
 
 namespace Hamburgerci.Entities.Concrete
 {
-    public class EkstraMalzeme
+    public class EkstraMalzeme : BaseEntity
     {
-        public int ID { get; set; }
-
         public string EkstraMalzemeAdi { get; set; }
 
         public double EkstraMalzemeFiyati { get; set; }
 
         public ParaBirimi ParaBirimi { get; set; }
-
-
     }
 }
