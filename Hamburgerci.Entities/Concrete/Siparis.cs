@@ -7,16 +7,11 @@ using System.Threading.Tasks;
 
 namespace Hamburgerci.Entities.Concrete
 {
-    public class Siparis
+    public class Siparis : BaseEntity
     {
-        public int ID { get; set; }
-
         public MenuBoyutu MenuBoyutu { get; set; }
-
         public int SiparisAdeti { get; set; }
-
-        public double SiparisTutar { get;  }
-        public double ToplamTutar { get;  }
+        public double ToplamTutar { get; }
 
         public ICollection<Menu> Menuler { get; set; }
 
