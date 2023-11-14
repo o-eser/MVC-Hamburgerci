@@ -7,7 +7,12 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Hamburgerci.Repository\Hamburgerci.Repository.csproj" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="6.0.24" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Hamburgerci.Entities\Hamburgerci.Entities.csproj" />
+    <ProjectReference Include="..\Hamburgerci.Repositoriess\Hamburgerci.Repositoriess.csproj" />
   </ItemGroup>
 
 </Project>
