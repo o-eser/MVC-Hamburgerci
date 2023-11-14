@@ -5,9 +5,9 @@ VisualStudioVersion = 17.7.34031.279
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Hamburgerci.UI", "Hamburgerci.UI\Hamburgerci.UI.csproj", "{DBA889C5-14D5-4354-848D-A2F42FF1C908}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Hamburgerci.Entities", "Hamburgerci.Entities\Hamburgerci.Entities.csproj", "{60A93CE8-CC44-4FE2-ACBB-ADC3D2B1B1C4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Hamburgerci.Entities", "Hamburgerci.Entities\Hamburgerci.Entities.csproj", "{60A93CE8-CC44-4FE2-ACBB-ADC3D2B1B1C4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Hamburgerci.Repositoriess", "Hamburgerci.Repositoriess\Hamburgerci.Repositoriess.csproj", "{5C983586-D816-4128-8DD4-2915422FEB8E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Hamburgerci.Repositories", "Hamburgerci.Repositoriess\Hamburgerci.Repositories.csproj", "{5C983586-D816-4128-8DD4-2915422FEB8E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
