@@ -1,6 +1,6 @@
-using Hamburgerci.Repositoriess.Abstract;
-using Hamburgerci.Repositoriess.Concrete;
-using Hamburgerci.Repositoriess.Context;
+using Hamburgerci.Repositories.Abstract;
+using Hamburgerci.Repositories.Concrete;
+using Hamburgerci.Repositories.Context;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);

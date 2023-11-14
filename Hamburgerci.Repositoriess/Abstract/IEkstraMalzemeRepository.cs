@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Hamburgerci.Repositoriess.Abstract
+namespace Hamburgerci.Repositories.Abstract
 {
     public interface IEkstraMalzemeRepository : IBaseRepository<EkstraMalzeme>
     {

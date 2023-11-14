@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Hamburgerci.Entities.Concrete;
+using Hamburgerci.Entities.Enum;
 
 namespace Hamburgerci.Entities.Abstract
 {
@@ -16,5 +17,6 @@ namespace Hamburgerci.Entities.Abstract
         public DateTime ModifiedDate { get; set; }
         public Kullanici DeletedBy { get; set; }
         public DateTime DeletedDate { get; set; }
+        public DataStatus DataStatus { get; set; }
     }
 }
