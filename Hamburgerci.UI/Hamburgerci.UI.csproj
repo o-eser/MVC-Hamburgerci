@@ -12,7 +12,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Hamburgerci.Entities\Hamburgerci.Entities.csproj" />
-    <ProjectReference Include="..\Hamburgerci.Repositoriess\Hamburgerci.Repositories.csproj" />
+    <ProjectReference Include="..\Hamburgerci.Repositories\Hamburgerci.Repositories.csproj" />
   </ItemGroup>
 
 </Project>

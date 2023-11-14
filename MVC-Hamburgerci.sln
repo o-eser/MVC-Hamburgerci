@@ -7,7 +7,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Hamburgerci.UI", "Hamburger
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Hamburgerci.Entities", "Hamburgerci.Entities\Hamburgerci.Entities.csproj", "{60A93CE8-CC44-4FE2-ACBB-ADC3D2B1B1C4}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Hamburgerci.Repositories", "Hamburgerci.Repositoriess\Hamburgerci.Repositories.csproj", "{5C983586-D816-4128-8DD4-2915422FEB8E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Hamburgerci.Repositories", "Hamburgerci.Repositories\Hamburgerci.Repositories.csproj", "{99232BB4-79B4-48E5-88FC-81911ABCF16F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -23,10 +23,10 @@ Global
 		{60A93CE8-CC44-4FE2-ACBB-ADC3D2B1B1C4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{60A93CE8-CC44-4FE2-ACBB-ADC3D2B1B1C4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{60A93CE8-CC44-4FE2-ACBB-ADC3D2B1B1C4}.Release|Any CPU.Build.0 = Release|Any CPU
-		{5C983586-D816-4128-8DD4-2915422FEB8E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{5C983586-D816-4128-8DD4-2915422FEB8E}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{5C983586-D816-4128-8DD4-2915422FEB8E}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{5C983586-D816-4128-8DD4-2915422FEB8E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{99232BB4-79B4-48E5-88FC-81911ABCF16F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{99232BB4-79B4-48E5-88FC-81911ABCF16F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{99232BB4-79B4-48E5-88FC-81911ABCF16F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{99232BB4-79B4-48E5-88FC-81911ABCF16F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
