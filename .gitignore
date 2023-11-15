@@ -361,3 +361,8 @@ MigrationBackup/
 
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
+/Hamburgerci.Repositories/Concrete/SiparisRepository.cs
+/Hamburgerci.Repositories/Concrete/EkstraMalzemeRepository.cs
+/Hamburgerci.Repositories/Abstract/ISiparisRepository.cs
+/Hamburgerci.Repositories/Abstract/IMenuRepository.cs
+/Hamburgerci.Repositories/Abstract/IKullaniciRepository.cs
