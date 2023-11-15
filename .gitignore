@@ -366,3 +366,7 @@ FodyWeavers.xsd
 /Hamburgerci.Repositories/Abstract/ISiparisRepository.cs
 /Hamburgerci.Repositories/Abstract/IMenuRepository.cs
 /Hamburgerci.Repositories/Abstract/IKullaniciRepository.cs
+/Hamburgerci.repositories/Concrete/EkstraMalzemeRepository.cs
+/Hamburgerci.repositories/Concrete/EkstraMalzemeRepository.cs
+/Hamburgerci.repositories/Concrete/EkstraMalzemeRepository.cs
+/Hamburgerci.repositories/Concrete/SiparisRepository.cs
