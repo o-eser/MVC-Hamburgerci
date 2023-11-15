@@ -1,6 +1,7 @@
 using Hamburgerci.Repositories.Abstract;
 using Hamburgerci.Repositories.Concrete;
 using Hamburgerci.Repositories.Context;
+using Hamburgerci.Repositories.Data;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -31,6 +32,7 @@ app.UseStaticFiles();
 app.UseRouting();
 
 app.UseAuthorization();
+SeedData.Seed(app);
 
 app.MapControllerRoute(
     name: "default",

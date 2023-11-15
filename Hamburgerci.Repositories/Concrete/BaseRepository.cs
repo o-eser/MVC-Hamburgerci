@@ -1,19 +1,12 @@
-﻿using Hamburgerci.Entities.Abstract;
-using Hamburgerci.Entities.Concrete;
-using Hamburgerci.Repositories.Abstract;
+﻿using Hamburgerci.Repositories.Abstract;
 using Hamburgerci.Repositories.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Linq.Expressions;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Hamburgerci.Repositories.Concrete
 {
-    public class BaseRepository<T> : IBaseRepository<T> where T :class, IBaseEntity
+    public class BaseRepository<T> : IBaseRepository<T> where T :class, Entities.Abstract.IBaseEntity
     {
         private readonly AppDbContext _context;
         private DbSet<T> _table;
@@ -89,7 +82,7 @@ namespace Hamburgerci.Repositories.Concrete
         {
             entity.DeletedDate = DateTime.Now;
             EntityEntry entityEntry= _table.Update(entity);
-            entityEntry.State = EntityState.Modified;
+            entityEntry.State = EntityState.Deleted;
             return Save() > 0;
         }
 

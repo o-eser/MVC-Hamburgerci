@@ -1,15 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Linq.Expressions;
-using System.Text;
-using System.Threading.Tasks;
-using Hamburgerci.Entities.Abstract;
-using Hamburgerci.Entities.Concrete;
+﻿using System.Linq.Expressions;
 
 namespace Hamburgerci.Repositories.Abstract
 {
-    public interface IBaseRepository<T> where T :class, IBaseEntity
+    public interface IBaseRepository<T> where T :class, Entities.Abstract.IBaseEntity
     {
         IQueryable<T> GetAll();
 
