@@ -3,14 +3,12 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Hamburgerci.UI.Controllers
 {
-    public class YonetimPaneliController : Controller
+    public class KullaniciPaneliController : Controller
     {
-        
         public IActionResult Index()
         {
-            MenuEkstraMalzemeVM model = new MenuEkstraMalzemeVM();
+            SiparisVM model=new SiparisVM();
             return View(model);
         }
-
     }
 }

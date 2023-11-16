@@ -1,6 +1,6 @@
 ﻿using Hamburgerci.Entities.Concrete;
 
-namespace Hamburgerci.UI.Models
+namespace Hamburgerci.UI.Models.ViewModels
 {
     public class MenuEkstraMalzemeVM
     {
