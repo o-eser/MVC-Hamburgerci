@@ -46,7 +46,7 @@
             <td>
                 @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
                 @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+                @Html.ActionLink("Delete", "Delete", new { id=item.Id })
             </td>
         </tr>
 }
@@ -92,9 +92,9 @@
                 <td>
                     @Html.DisplayFor(modelItem => item.ParaBirimi)
                 <td>
-                    @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
+                    @Html.ActionLink("Edit", "MenuDuzenle", new { id=item.Id }) |
                     @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
-                    @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+                        @Html.ActionLink("Delete", "MenuSil", new { id=item.Id })
                 </td>
             </tr>
         }

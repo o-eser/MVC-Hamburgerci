@@ -41,5 +41,29 @@ namespace Hamburgerci.UI.Controllers
             return View(model);
         }
 
+        public async Task<IActionResult> MenuDuzenle(int id)
+        {
+            MenuVM vm = new MenuVM();
+            vm.Menu = await _menuService.GetByIdAsync(id);
+            return View(vm);
+        }
+
+        [HttpPost]
+        public IActionResult MenuDuzenle(MenuVM model)
+        {
+            if (ModelState.IsValid)
+            {
+                _menuService.Update(model.Menu);
+                return RedirectToAction("Index");
+            }
+            return View(model);
+        }
+
+        public async Task<IActionResult> MenuSil(int id)
+        {
+            await _menuService.RemoveAsync(id);
+            return RedirectToAction("Index");
+        }
+
     }
 }
