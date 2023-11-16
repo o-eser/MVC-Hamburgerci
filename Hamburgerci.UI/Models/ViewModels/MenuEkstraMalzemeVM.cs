@@ -9,7 +9,7 @@ namespace Hamburgerci.UI.Models.ViewModels
             Menuler = new List<Menu>();
             EkstraMalzemeler = new List<EkstraMalzeme>();
         }
-        List<Menu> Menuler { get; set; }
-        List<EkstraMalzeme> EkstraMalzemeler { get; set; }
+        public List<Menu> Menuler { get; set; }
+        public List<EkstraMalzeme> EkstraMalzemeler { get; set; }
     }
 }

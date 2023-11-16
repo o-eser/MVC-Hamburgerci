@@ -1,7 +1,11 @@
+using Hamburgerci.Entities.Concrete;
 using Hamburgerci.Repositories.Abstract;
 using Hamburgerci.Repositories.Concrete;
 using Hamburgerci.Repositories.Context;
 using Hamburgerci.Repositories.Data;
+using Hamburgerci.Services.Abstract;
+using Hamburgerci.Services.Concrete;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -13,6 +17,25 @@ builder.Services.AddDbContext<AppDbContext>(options => options.UseSqlServer(
     builder.Configuration.GetConnectionString("DefaultConnection")));
 
 builder.Services.AddTransient<ISiparisRepository, SiparisRepository>(); //Diyoruz ki ISiparisRepository gördüðün yerde SiparisRepository kullan.
+builder.Services.AddTransient<ISiparisService, SiparisManager>();
+builder.Services.AddTransient<IEkstraMalzemeRepository, EkstraMalzemeRepository>();
+builder.Services.AddTransient<IEkstraMalzemeService, EkstraMalzemeManager>();
+builder.Services.AddTransient<IMenuService, MenuManager>();
+builder.Services.AddTransient<IMenuRepository, MenuRepository>();
+
+builder.Services.AddIdentity<Kullanici, IdentityRole<int>>(options =>
+{
+    options.SignIn.RequireConfirmedEmail = false;
+    options.SignIn.RequireConfirmedPhoneNumber = false;
+    options.SignIn.RequireConfirmedAccount = false;
+    options.Password.RequireUppercase = false;
+    options.Password.RequireNonAlphanumeric = false;
+    options.Password.RequireLowercase = false;
+    options.Password.RequiredLength = 3;
+}
+).AddEntityFrameworkStores<AppDbContext>().AddDefaultTokenProviders();
+
+
 
 
 

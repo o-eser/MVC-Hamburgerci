@@ -1,16 +1,23 @@
-﻿using Hamburgerci.UI.Models.ViewModels;
+
+﻿using Hamburgerci.Services.Abstract;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Hamburgerci.UI.Controllers
 {
     public class YonetimPaneliController : Controller
     {
-        
-        public IActionResult Index()
+        IMenuService _menuService;
+        IEkstraMalzemeService _ekstraMalzemeService;
+
+        public YonetimPaneliController(IMenuService menuService, IEkstraMalzemeService ekstraMalzemeService)
         {
-            MenuEkstraMalzemeVM model = new MenuEkstraMalzemeVM();
-            return View(model);
+            _menuService = menuService;
+            _ekstraMalzemeService = ekstraMalzemeService;
         }
 
+        public IActionResult Index()
+        {
+            return View();
+        }
     }
 }
