@@ -17,7 +17,6 @@ namespace Hamburgerci.Entities.Concrete
             DataStatus = DataStatus.Inserted;
         }
         public string FirstName { get; set; }
-        public int Id { get ; set; }
         public Kullanici CreatedBy { get; set; }
         public DateTime CreatedDate { get; set; }
         public Kullanici? ModifiedBy { get; set; }
