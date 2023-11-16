@@ -13,6 +13,8 @@ namespace Hamburgerci.Entities.Concrete
         public ICollection<Menu> Menuler { get; set; }
 
         public ICollection<EkstraMalzeme> EkstraMalzemeler { get; set; }
+        public int KullaniciId { get; set; }
+        public Kullanici Kullanici { get; set; }
 
     }
 }

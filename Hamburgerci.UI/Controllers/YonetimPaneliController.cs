@@ -1,7 +1,4 @@
-﻿using Hamburgerci.Entities.Concrete;
-using Hamburgerci.Repositories.Abstract;
-using Hamburgerci.Services.Abstract;
-using Hamburgerci.UI.Models.ViewModels;
+﻿using Hamburgerci.Services.Abstract;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Hamburgerci.UI.Controllers
@@ -19,10 +16,7 @@ namespace Hamburgerci.UI.Controllers
 
         public IActionResult Index()
         {
-            MenuEkstraMalzemeVM model = new MenuEkstraMalzemeVM();
-            model.Menuler = _menuService.GetAll().ToList();
-            model.EkstraMalzemeler=_ekstraMalzemeService.GetAll().ToList();
-            return View(model);
+            return View();
         }
     }
 }
