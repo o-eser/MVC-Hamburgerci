@@ -14,14 +14,14 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllersWithViews();
 
 builder.Services.AddDbContext<AppDbContext>(options => options.UseSqlServer(
-    builder.Configuration.GetConnectionString("DefaultConnection")));
+    builder.Configuration.GetConnectionString("DefaultConnection")),ServiceLifetime.Scoped);
 
-builder.Services.AddTransient<ISiparisRepository, SiparisRepository>(); //Diyoruz ki ISiparisRepository gördüðün yerde SiparisRepository kullan.
-builder.Services.AddTransient<ISiparisService, SiparisManager>();
-builder.Services.AddTransient<IEkstraMalzemeRepository, EkstraMalzemeRepository>();
-builder.Services.AddTransient<IEkstraMalzemeService, EkstraMalzemeManager>();
-builder.Services.AddTransient<IMenuService, MenuManager>();
-builder.Services.AddTransient<IMenuRepository, MenuRepository>();
+builder.Services.AddScoped<ISiparisRepository, SiparisRepository>(); //Diyoruz ki ISiparisRepository gördüðün yerde SiparisRepository kullan.
+builder.Services.AddScoped<ISiparisService, SiparisManager>();
+builder.Services.AddScoped<IEkstraMalzemeRepository, EkstraMalzemeRepository>();
+builder.Services.AddScoped<IEkstraMalzemeService, EkstraMalzemeManager>();
+builder.Services.AddScoped<IMenuService, MenuManager>();
+builder.Services.AddScoped<IMenuRepository, MenuRepository>();
 
 builder.Services.AddIdentity<Kullanici, IdentityRole<int>>(options =>
 {
@@ -55,7 +55,8 @@ app.UseStaticFiles();
 app.UseRouting();
 
 app.UseAuthorization();
-SeedData.Seed(app);
+app.UseAuthentication();
+//SeedData.Seed(app);
 
 app.MapControllerRoute(
     name: "default",

@@ -43,7 +43,7 @@ namespace Hamburgerci.Services.Concrete
 
         public IEnumerable<T> GetAll()
         {
-            return _baseRepository.GetAll();
+            return GetWhere(e => e.DataStatus != DataStatus.Deleted);
         }
 
         public async Task<T> GetByIdAsync(int id)
@@ -64,16 +64,16 @@ namespace Hamburgerci.Services.Concrete
             return _baseRepository.GetWhere(expression);
         }
 
-        public async Task Remove(int id)
+        public async Task RemoveAsync(int id)
         {
             if (id > 0)
             {
                 T entity = await GetByIdAsync(id);
                 entity.DataStatus = DataStatus.Deleted;
                 entity.DeletedDate = DateTime.Now;
-                _baseRepository.Update(entity);
+                 Update(entity);
 
-                _baseRepository.Save();
+                await _baseRepository.SaveAsync();
             }
         }
 

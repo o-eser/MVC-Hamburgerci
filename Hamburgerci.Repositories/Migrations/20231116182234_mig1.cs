@@ -224,7 +224,7 @@ namespace Hamburgerci.Repositories.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "EkstraMalzemeSiparis",
+                name: "SiparisEsktraMalzemeler",
                 columns: table => new
                 {
                     EkstraMalzemelerId = table.Column<int>(type: "int", nullable: false),
@@ -232,15 +232,15 @@ namespace Hamburgerci.Repositories.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_EkstraMalzemeSiparis", x => new { x.EkstraMalzemelerId, x.SiparislerId });
+                    table.PrimaryKey("PK_SiparisEsktraMalzemeler", x => new { x.EkstraMalzemelerId, x.SiparislerId });
                     table.ForeignKey(
-                        name: "FK_EkstraMalzemeSiparis_EkstraMalzemeler_EkstraMalzemelerId",
+                        name: "FK_SiparisEsktraMalzemeler_EkstraMalzemeler_EkstraMalzemelerId",
                         column: x => x.EkstraMalzemelerId,
                         principalTable: "EkstraMalzemeler",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_EkstraMalzemeSiparis_Siparisler_SiparislerId",
+                        name: "FK_SiparisEsktraMalzemeler_Siparisler_SiparislerId",
                         column: x => x.SiparislerId,
                         principalTable: "Siparisler",
                         principalColumn: "Id",
@@ -248,7 +248,7 @@ namespace Hamburgerci.Repositories.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "MenuSiparis",
+                name: "SiparisMenuler",
                 columns: table => new
                 {
                     MenulerId = table.Column<int>(type: "int", nullable: false),
@@ -256,15 +256,15 @@ namespace Hamburgerci.Repositories.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_MenuSiparis", x => new { x.MenulerId, x.SiparislerId });
+                    table.PrimaryKey("PK_SiparisMenuler", x => new { x.MenulerId, x.SiparislerId });
                     table.ForeignKey(
-                        name: "FK_MenuSiparis_Menuler_MenulerId",
+                        name: "FK_SiparisMenuler_Menuler_MenulerId",
                         column: x => x.MenulerId,
                         principalTable: "Menuler",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_MenuSiparis_Siparisler_SiparislerId",
+                        name: "FK_SiparisMenuler_Siparisler_SiparislerId",
                         column: x => x.SiparislerId,
                         principalTable: "Siparisler",
                         principalColumn: "Id",
@@ -311,19 +311,19 @@ namespace Hamburgerci.Repositories.Migrations
                 filter: "[NormalizedUserName] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
-                name: "IX_EkstraMalzemeSiparis_SiparislerId",
-                table: "EkstraMalzemeSiparis",
-                column: "SiparislerId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_MenuSiparis_SiparislerId",
-                table: "MenuSiparis",
+                name: "IX_SiparisEsktraMalzemeler_SiparislerId",
+                table: "SiparisEsktraMalzemeler",
                 column: "SiparislerId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Siparisler_KullaniciId",
                 table: "Siparisler",
                 column: "KullaniciId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_SiparisMenuler_SiparislerId",
+                table: "SiparisMenuler",
+                column: "SiparislerId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -344,10 +344,10 @@ namespace Hamburgerci.Repositories.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
-                name: "EkstraMalzemeSiparis");
+                name: "SiparisEsktraMalzemeler");
 
             migrationBuilder.DropTable(
-                name: "MenuSiparis");
+                name: "SiparisMenuler");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoles");

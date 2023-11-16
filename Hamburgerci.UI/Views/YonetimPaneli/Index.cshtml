@@ -1,1 +1,102 @@
 ﻿@model MenuEkstraMalzemeVM
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Ekstra Malzemeler</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Id
+            </th>
+            <th>
+                Adı
+            </th>
+            <th>
+                Fiyat
+            </th>
+            <th>
+                ParaBirimi
+            </th>
+            
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model.EkstraMalzemeler) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Id)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.EkstraMalzemeAdi)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.EkstraMalzemeFiyati)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ParaBirimi)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
+                @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
+                @Html.ActionLink("Delete", "Delete", new { id=item.Id })
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
+
+<h1>Menu</h1>
+
+<p>
+    <a asp-action="MenuEkle">Create Menu</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Id
+            </th>
+            <th>
+                Menü Adı
+            </th>
+            <th>
+                Fiyatı
+            </th>
+            <th>
+                Para Birimi
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.Menuler)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Id)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.MenuAdi)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.MenuFiyati)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ParaBirimi)
+                <td>
+                    @Html.ActionLink("Edit", "MenuDuzenle", new { id=item.Id }) |
+                    @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
+                        @Html.ActionLink("Delete", "MenuSil", new { id=item.Id })
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

@@ -17,7 +17,7 @@ namespace Hamburgerci.Services.Abstract
 
         Task<T> CreateAsync(T entity);
         T Update(T entity);
-        Task Remove(int id);
+        Task RemoveAsync(int id);
         void Delete(int id);
     }
 }
