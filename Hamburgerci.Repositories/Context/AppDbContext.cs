@@ -18,8 +18,14 @@ namespace Hamburgerci.Repositories.Context
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
-            builder.Entity<Siparis>().HasMany(a=>a.EkstraMalzemeler).WithMany(a=>a.Siparisler);
-            builder.Entity<Siparis>().HasMany(a=>a.Menuler).WithMany(a=>a.Siparisler); 
+            builder.Entity<Siparis>()
+                .HasMany(a=>a.EkstraMalzemeler)
+                .WithMany(a=>a.Siparisler)
+                .UsingEntity(j=>j.ToTable( "SiparisEsktraMalzemeler"));
+            builder.Entity<Siparis>()
+                .HasMany(a=>a.Menuler)
+                .WithMany(a=>a.Siparisler)
+                .UsingEntity(j => j.ToTable("SiparisMenuler"));
             builder.Entity<Siparis>().HasOne(a=>a.Kullanici).WithMany(a=>a.Siparisler);
             base.OnModelCreating(builder);
         }

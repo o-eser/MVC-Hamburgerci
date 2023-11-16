@@ -55,7 +55,7 @@ app.UseStaticFiles();
 app.UseRouting();
 
 app.UseAuthorization();
-SeedData.Seed(app);
+//SeedData.Seed(app);
 
 app.MapControllerRoute(
     name: "default",

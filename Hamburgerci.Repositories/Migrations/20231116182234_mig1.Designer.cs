@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Hamburgerci.Repositories.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20231116175047_mig-1")]
+    [Migration("20231116182234_mig1")]
     partial class mig1
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -36,7 +36,7 @@ namespace Hamburgerci.Repositories.Migrations
 
                     b.HasIndex("SiparislerId");
 
-                    b.ToTable("EkstraMalzemeSiparis");
+                    b.ToTable("SiparisEsktraMalzemeler", (string)null);
                 });
 
             modelBuilder.Entity("Hamburgerci.Entities.Concrete.EkstraMalzeme", b =>
@@ -238,7 +238,7 @@ namespace Hamburgerci.Repositories.Migrations
 
                     b.HasIndex("SiparislerId");
 
-                    b.ToTable("MenuSiparis");
+                    b.ToTable("SiparisMenuler", (string)null);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole<int>", b =>
