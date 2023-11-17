@@ -3,6 +3,8 @@ using Hamburgerci.Entities.Concrete;
 using Hamburgerci.Services.Abstract;
 using Hamburgerci.UI.Models.ViewModels;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using X.PagedList;
 
 namespace Hamburgerci.UI.Controllers
 {
@@ -16,6 +18,18 @@ namespace Hamburgerci.UI.Controllers
             _menuService = menuService;
             _ekstraMalzemeService = ekstraMalzemeService;
         }
+
+        public IActionResult MenuIndex(string searchText, int page = 1, int pageSize = 10)
+        {
+            MenuVM vm = new MenuVM();
+			vm.Menuler = _menuService.GetAll().ToPagedList(page, pageSize);
+			if (!String.IsNullOrEmpty(searchText))
+			{
+				vm.Menuler = _menuService.GetWhere(c => c.MenuAdi.ToLower().Contains(searchText.ToLower())).ToPagedList(page, pageSize);
+			}
+
+			return View(vm);
+		}
 
         public IActionResult Index()
         {
@@ -36,7 +50,7 @@ namespace Hamburgerci.UI.Controllers
             if (ModelState.IsValid)
             {
                 await _menuService.CreateAsync(model.Menu);
-                return RedirectToAction("Index");
+                return RedirectToAction("MenuIndex");
             }
             return View(model);
         }
