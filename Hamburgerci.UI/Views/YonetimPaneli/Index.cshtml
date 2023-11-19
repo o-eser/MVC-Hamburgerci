@@ -7,7 +7,7 @@
 <h1>Ekstra Malzemeler</h1>
 
 <p>
-    <a asp-action="Create">Create New</a>
+    <a asp-action="Create">Create EkstraMalzeme</a>
 </p>
 <table class="table">
     <thead>
@@ -16,20 +16,20 @@
                 Id
             </th>
             <th>
-                Adı
+                Ekstra Malzeme Adı
             </th>
             <th>
-                Fiyat
+                Fiyatı
             </th>
             <th>
-                ParaBirimi
+                Para Birimi
             </th>
             
             <th></th>
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model.EkstraMalzemeler) {
+        @foreach (var item in Model.EkstraMalzemeler) {
         <tr>
             <td>
                 @Html.DisplayFor(modelItem => item.Id)
@@ -44,9 +44,9 @@
                 @Html.DisplayFor(modelItem => item.ParaBirimi)
             </td>
             <td>
-                @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
+                @Html.ActionLink("Edit", "EkstraMalzemeDüzenle", new { id=item.Id }) |
                 @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Delete", "Delete", new { id=item.Id })
+                    @Html.ActionLink("Delete", "EkstraMalzemeSil", new { id=item.Id })
             </td>
         </tr>
 }
@@ -94,7 +94,7 @@
                 <td>
                     @Html.ActionLink("Edit", "MenuDuzenle", new { id=item.Id }) |
                     @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
-                        @Html.ActionLink("Delete", "MenuSil", new { id=item.Id })
+                    @Html.ActionLink("Delete", "MenuSil", new { id=item.Id })
                 </td>
             </tr>
         }
