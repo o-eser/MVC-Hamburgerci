@@ -1,0 +1,61 @@
+﻿@model SiparisVM
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Siparisler</h1>
+
+<p>
+    <a asp-action="Create">Create Siparis</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Id
+            </th>
+            <th>
+                MenuBoyutu
+            </th>
+            <th>
+                SiparisAdeti
+            </th>
+            <th>
+                ToplamTutar
+            </th>
+            <th>
+                KullaniciId
+            </th>
+
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model.Siparisler) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Id)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.MenuBoyutu)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.SiparisAdeti)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ToplamTutar)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.KullaniciId)
+            </td>
+
+            <td>
+                    @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
+                @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
+                    @Html.ActionLink("Delete", "Delete", new { id=item.Id })
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

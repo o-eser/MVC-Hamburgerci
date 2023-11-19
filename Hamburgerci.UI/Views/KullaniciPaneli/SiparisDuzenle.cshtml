@@ -1,0 +1,52 @@
+﻿@model SiparisVM
+
+@{
+    ViewData["Title"] = "SiparisDuzenle";
+}
+
+<h1>SiparisDuzenle</h1>
+
+<h4>Siparis</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="SiparisDuzenle">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <input asp-for="Siparis.Id" type="hidden" class="form-control" />
+            </div>
+            <div class="form-group">
+                <label asp-for="Siparis.MenuBoyutu" class="control-label"></label>
+                <input asp-for="Siparis.MenuBoyutu" class="form-control" />
+                <span asp-validation-for="Siparis.MenuBoyutu" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Siparis.SiparisAdeti" class="control-label"></label>
+                <input asp-for="Siparis.SiparisAdeti" class="form-control" />
+                <span asp-validation-for="Siparis.SiparisAdeti" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Siparis.ToplamTutar" class="control-label"></label>
+                <input asp-for="Siparis.ToplamTutar" class="form-control" />
+                <span asp-validation-for="Siparis.ToplamTutar" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Siparis.KullaniciId" class="control-label"></label>
+                <input asp-for="Siparis.KullaniciId" class="form-control" />
+                <span asp-validation-for="Siparis.KullaniciId" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

@@ -9,6 +9,7 @@ namespace Hamburgerci.UI.Models.ViewModels
             Siparisler = new List<Siparis>();
         }
 
+        public Siparis Siparis { get; set; }
         public List<Siparis> Siparisler { get; set; }
 
     }
