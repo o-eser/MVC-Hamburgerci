@@ -8,6 +8,7 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="6.0.25" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="6.0.25" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="6.0.25">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
@@ -18,9 +19,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Hamburgerci.Entities\Hamburgerci.Entities.csproj" />
-    <ProjectReference Include="..\Hamburgerci.Repositories\Hamburgerci.Repositories.csproj" />
-    <ProjectReference Include="..\Hamburgerci.Services\Hamburgerci.Services.csproj" />
+    <ProjectReference Include="..\Hamburgerci.Application\Hamburgerci.Application.csproj" />
+    <ProjectReference Include="..\Hamburgerci.Infrastructure\Hamburgerci.Infrastructure.csproj" />
   </ItemGroup>
 
 </Project>

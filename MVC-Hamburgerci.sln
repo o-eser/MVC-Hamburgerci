@@ -5,11 +5,11 @@ VisualStudioVersion = 17.7.34031.279
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Hamburgerci.UI", "Hamburgerci.UI\Hamburgerci.UI.csproj", "{DBA889C5-14D5-4354-848D-A2F42FF1C908}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Hamburgerci.Entities", "Hamburgerci.Entities\Hamburgerci.Entities.csproj", "{60A93CE8-CC44-4FE2-ACBB-ADC3D2B1B1C4}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Hamburgerci.Domain", "Hamburgerci.Domain\Hamburgerci.Domain.csproj", "{CEFBB2B3-4B0C-4CEC-ADF8-52FEBFF71A9D}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Hamburgerci.Repositories", "Hamburgerci.Repositories\Hamburgerci.Repositories.csproj", "{99232BB4-79B4-48E5-88FC-81911ABCF16F}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Hamburgerci.Infrastructure", "Hamburgerci.Infrastructure\Hamburgerci.Infrastructure.csproj", "{5EC78450-73E8-424C-B6AB-B75F6CEB7242}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Hamburgerci.Services", "Hamburgerci.Services\Hamburgerci.Services.csproj", "{F5397CFB-59C8-46BE-82F5-6409FF6F4265}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Hamburgerci.Application", "Hamburgerci.Application\Hamburgerci.Application.csproj", "{E81696AA-0159-4556-ABFE-E7A17937063A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,18 +21,18 @@ Global
 		{DBA889C5-14D5-4354-848D-A2F42FF1C908}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DBA889C5-14D5-4354-848D-A2F42FF1C908}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DBA889C5-14D5-4354-848D-A2F42FF1C908}.Release|Any CPU.Build.0 = Release|Any CPU
-		{60A93CE8-CC44-4FE2-ACBB-ADC3D2B1B1C4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{60A93CE8-CC44-4FE2-ACBB-ADC3D2B1B1C4}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{60A93CE8-CC44-4FE2-ACBB-ADC3D2B1B1C4}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{60A93CE8-CC44-4FE2-ACBB-ADC3D2B1B1C4}.Release|Any CPU.Build.0 = Release|Any CPU
-		{99232BB4-79B4-48E5-88FC-81911ABCF16F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{99232BB4-79B4-48E5-88FC-81911ABCF16F}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{99232BB4-79B4-48E5-88FC-81911ABCF16F}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{99232BB4-79B4-48E5-88FC-81911ABCF16F}.Release|Any CPU.Build.0 = Release|Any CPU
-		{F5397CFB-59C8-46BE-82F5-6409FF6F4265}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{F5397CFB-59C8-46BE-82F5-6409FF6F4265}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{F5397CFB-59C8-46BE-82F5-6409FF6F4265}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{F5397CFB-59C8-46BE-82F5-6409FF6F4265}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CEFBB2B3-4B0C-4CEC-ADF8-52FEBFF71A9D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CEFBB2B3-4B0C-4CEC-ADF8-52FEBFF71A9D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CEFBB2B3-4B0C-4CEC-ADF8-52FEBFF71A9D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CEFBB2B3-4B0C-4CEC-ADF8-52FEBFF71A9D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5EC78450-73E8-424C-B6AB-B75F6CEB7242}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5EC78450-73E8-424C-B6AB-B75F6CEB7242}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5EC78450-73E8-424C-B6AB-B75F6CEB7242}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5EC78450-73E8-424C-B6AB-B75F6CEB7242}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E81696AA-0159-4556-ABFE-E7A17937063A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E81696AA-0159-4556-ABFE-E7A17937063A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E81696AA-0159-4556-ABFE-E7A17937063A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E81696AA-0159-4556-ABFE-E7A17937063A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

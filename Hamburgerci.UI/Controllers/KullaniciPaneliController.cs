@@ -1,4 +1,5 @@
-﻿using Hamburgerci.UI.Models.ViewModels;
+﻿
+using Hamburgerci.Application.Models.VMs;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Hamburgerci.UI.Controllers
