@@ -22,7 +22,7 @@ namespace Hamburgerci.Application.Services.Concrete
 
 		public async Task Create(MenuDTO model)
 		{
-			Menu ekstraMalzeme = new Menu
+			Menu menu = new Menu
 			{
 				MenuAdi = model.MenuAdi,
 				MenuFiyati = model.MenuFiyati,
@@ -30,7 +30,7 @@ namespace Hamburgerci.Application.Services.Concrete
 			};
 
 
-			await _menuRepository.Create(ekstraMalzeme);
+			await _menuRepository.Create(menu);
 		}
 
 		public async Task Delete(int id)
