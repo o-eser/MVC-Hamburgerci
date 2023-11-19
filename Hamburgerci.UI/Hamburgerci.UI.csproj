@@ -20,6 +20,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Hamburgerci.Application\Hamburgerci.Application.csproj" />
+    <ProjectReference Include="..\Hamburgerci.Domain\Hamburgerci.Domain.csproj" />
     <ProjectReference Include="..\Hamburgerci.Infrastructure\Hamburgerci.Infrastructure.csproj" />
   </ItemGroup>
 

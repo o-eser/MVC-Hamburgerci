@@ -81,45 +81,45 @@ namespace Hamburgerci.UI.Controllers
         //}
 
        
-        public IActionResult EkstraMalzemeEkle()
-        {
-            return View();
-        }
+        //public IActionResult EkstraMalzemeEkle()
+        //{
+        //    return View();
+        //}
 
-        [HttpPost]
-        public async Task<IActionResult> EkstraMalzemeEkle(EkstraMalzemeVM model)
-        {
-            if (ModelState.IsValid) 
-            {
-                await _ekstraMalzemeService.CreateAsync(model.EkstraMalzeme);
-                return RedirectToAction("Index");
-            }
-            return View(model);
-        }
+        //[HttpPost]
+        //public async Task<IActionResult> EkstraMalzemeEkle(EkstraMalzemeVM model)
+        //{
+        //    if (ModelState.IsValid) 
+        //    {
+        //        await _ekstraMalzemeService.CreateAsync(model.EkstraMalzeme);
+        //        return RedirectToAction("Index");
+        //    }
+        //    return View(model);
+        //}
 
-        public async Task<IActionResult> EkstraMalzemeDuzenle(int id)
-        {
-            EkstraMalzemeVM vm = new EkstraMalzemeVM();
-            vm.EkstraMalzeme = await _ekstraMalzemeService.GetByIdAsync(id);
-            return View(vm);
-        }
+        //public async Task<IActionResult> EkstraMalzemeDuzenle(int id)
+        //{
+        //    EkstraMalzemeVM vm = new EkstraMalzemeVM();
+        //    vm.EkstraMalzeme = await _ekstraMalzemeService.GetByIdAsync(id);
+        //    return View(vm);
+        //}
 
-        [HttpPost]
-        public IActionResult EkstraMalzemeDuzenle(EkstraMalzemeVM model)
-        {
-            if (ModelState.IsValid)
-            {
-                _ekstraMalzemeService.Update(model.EkstraMalzeme);
-                return RedirectToAction("Index");
-            }
-            return View(model);
-        }
+        //[HttpPost]
+        //public IActionResult EkstraMalzemeDuzenle(EkstraMalzemeVM model)
+        //{
+        //    if (ModelState.IsValid)
+        //    {
+        //        _ekstraMalzemeService.Update(model.EkstraMalzeme);
+        //        return RedirectToAction("Index");
+        //    }
+        //    return View(model);
+        //}
 
-        public async Task<IActionResult> EkstraMalzemeSil(int id)
-        {
-            await _ekstraMalzemeService.RemoveAsync(id);
-            return RedirectToAction("Index");
-        }
+        //public async Task<IActionResult> EkstraMalzemeSil(int id)
+        //{
+        //    await _ekstraMalzemeService.RemoveAsync(id);
+        //    return RedirectToAction("Index");
+        //}
 
 
     }

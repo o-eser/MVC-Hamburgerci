@@ -370,3 +370,6 @@ FodyWeavers.xsd
 /Hamburgerci.repositories/Concrete/EkstraMalzemeRepository.cs
 /Hamburgerci.repositories/Concrete/EkstraMalzemeRepository.cs
 /Hamburgerci.repositories/Concrete/SiparisRepository.cs
+/Hamburgerci.UI/appsettings.json
+/Hamburgerci.UI/appsettings.json
+/.gitignore
