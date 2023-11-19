@@ -1,10 +1,9 @@
+using Hamburgerci.Application.Services.Abstract;
+using Hamburgerci.Application.Services.Concrete;
 using Hamburgerci.Entities.Concrete;
 using Hamburgerci.Repositories.Abstract;
 using Hamburgerci.Repositories.Concrete;
 using Hamburgerci.Repositories.Context;
-using Hamburgerci.Repositories.Data;
-using Hamburgerci.Services.Abstract;
-using Hamburgerci.Services.Concrete;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
@@ -17,10 +16,10 @@ builder.Services.AddDbContext<AppDbContext>(options => options.UseSqlServer(
     builder.Configuration.GetConnectionString("DefaultConnection")),ServiceLifetime.Scoped);
 
 builder.Services.AddScoped<ISiparisRepository, SiparisRepository>(); //Diyoruz ki ISiparisRepository gördüðün yerde SiparisRepository kullan.
-builder.Services.AddScoped<ISiparisService, SiparisManager>();
+builder.Services.AddScoped<ISiparisService, SiparisService>();
 builder.Services.AddScoped<IEkstraMalzemeRepository, EkstraMalzemeRepository>();
-builder.Services.AddScoped<IEkstraMalzemeService, EkstraMalzemeManager>();
-builder.Services.AddScoped<IMenuService, MenuManager>();
+builder.Services.AddScoped<IEkstraMalzemeService, EkstraMalzemeService>();
+builder.Services.AddScoped<IMenuService, MenuService>();
 builder.Services.AddScoped<IMenuRepository, MenuRepository>();
 
 builder.Services.AddIdentity<Kullanici, IdentityRole<int>>(options =>

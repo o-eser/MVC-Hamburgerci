@@ -1,7 +1,6 @@
-
-using Hamburgerci.Entities.Concrete;
-using Hamburgerci.Services.Abstract;
-using Hamburgerci.UI.Models.ViewModels;
+using Hamburgerci.Application.Models.DTOs;
+using Hamburgerci.Application.Models.VMs;
+using Hamburgerci.Application.Services.Abstract;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using X.PagedList;
@@ -19,65 +18,66 @@ namespace Hamburgerci.UI.Controllers
             _ekstraMalzemeService = ekstraMalzemeService;
         }
 
-        public IActionResult MenuIndex(string searchText, int page = 1, int pageSize = 10)
+        public async Task<IActionResult> MenuIndex(string searchText, int page = 1, int pageSize = 10)
         {
-            MenuVM vm = new MenuVM();
-			vm.Menuler = _menuService.GetAll().ToPagedList(page, pageSize);
+            var menuler = await _menuService.GetAll();
+			var pagedMenuler =menuler.ToPagedList(pageSize,page);
 			if (!String.IsNullOrEmpty(searchText))
 			{
-				vm.Menuler = _menuService.GetWhere(c => c.MenuAdi.ToLower().Contains(searchText.ToLower())).ToPagedList(page, pageSize);
+				menuler = await _menuService.Search(searchText);
+                pagedMenuler = menuler.ToPagedList(pageSize, page);
 			}
 
-			return View(vm);
+			return View(pagedMenuler);
 		}
 
-        public IActionResult Index()
-        {
-            MenuEkstraMalzemeVM vm = new MenuEkstraMalzemeVM();
-            vm.Menuler = _menuService.GetAll().ToList();
-            vm.EkstraMalzemeler = _ekstraMalzemeService.GetAll().ToList();
-            return View(vm);
-        }
+        //public async Task<IActionResult> Index()
+        //{
+        //    List<EkstraMalzemeVM> vm = new List<EkstraMalzemeVM> ();
+        //    vm = await _menuService.GetAll();
+        //    vm.EkstraMalzemeler = _ekstraMalzemeService.GetAll().ToList();
+        //    return View(vm);
+        //}
 
-        public IActionResult MenuEkle()
-        {
-            return View();
-        }
+        //public IActionResult MenuEkle()
+        //{
+        //    return View();
+        //}
 
-        [HttpPost]
-        public async Task<IActionResult> MenuEkleAsync(MenuVM model)
-        {
-            if (ModelState.IsValid)
-            {
-                await _menuService.CreateAsync(model.Menu);
-                return RedirectToAction("MenuIndex");
-            }
-            return View(model);
-        }
+        //[HttpPost]
+        //public async Task<IActionResult> MenuEkleAsync(MenuVM model)
+        //{
+        //    if (ModelState.IsValid)
+        //    {
+        //        await _menuService.CreateAsync(model.Menu);
+        //        return RedirectToAction("MenuIndex");
+        //    }
+        //    return View(model);
+        //}
 
-        public async Task<IActionResult> MenuDuzenle(int id)
-        {
-            MenuVM vm = new MenuVM();
-            vm.Menu = await _menuService.GetByIdAsync(id);
-            return View(vm);
-        }
+        //public async Task<IActionResult> MenuDuzenle(int id)
+        //{
+        //    MenuVM vm = new MenuVM();
+        //    vm.Menu = await _menuService.GetByIdAsync(id);
+        //    return View(vm);
+        //}
 
-        [HttpPost]
-        public IActionResult MenuDuzenle(MenuVM model)
-        {
-            if (ModelState.IsValid)
-            {
-                _menuService.Update(model.Menu);
-                return RedirectToAction("Index");
-            }
-            return View(model);
-        }
+        //[HttpPost]
+        //public IActionResult MenuDuzenle(MenuVM model)
+        //{
+        //    if (ModelState.IsValid)
+        //    {
+        //        _menuService.Update(model.Menu);
+        //        return RedirectToAction("Index");
+        //    }
+        //    return View(model);
+        //}
 
-        public async Task<IActionResult> MenuSil(int id)
-        {
-            await _menuService.RemoveAsync(id);
-            return RedirectToAction("Index");
-        }
+        //public async Task<IActionResult> MenuSil(int id)
+        //{
+        //    await _menuService.RemoveAsync(id);
+        //    return RedirectToAction("Index");
+        //}
 
     }
 }
