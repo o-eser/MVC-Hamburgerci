@@ -1,0 +1,50 @@
+﻿@model EkstraMalzemeDTO
+
+<button type="button" class="btn btn-warning btn-icon-split" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+	<span class="text-white-50 icon"><i class="fas fa-exclamation-triangle me-2"></i></span><span class="text-white text">Update</span>
+</button>
+
+<!-- Modal -->
+<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title" id="staticBackdropLabel">Modal title</h5>
+				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+			</div>
+			<form asp-action="EkstraMalzemeDuzenle">
+				<div class="modal-body">
+					<div class="row">
+						<div class="col-md-4">
+							<div asp-validation-summary="ModelOnly" class="text-danger"></div>
+							<div class="form-group">
+								<input asp-for="Id" type="hidden" class="form-control" />
+							</div>
+							<div class="form-group">
+								<label asp-for="Adi" class="control-label"></label>
+								<input asp-for="Adi" class="form-control" />
+								<span asp-validation-for="Adi" class="text-danger"></span>
+							</div>
+							<div class="form-group">
+								<label asp-for="Fiyati" class="control-label"></label>
+								<input asp-for="Fiyati" class="form-control" />
+								<span asp-validation-for="Fiyati" class="text-danger"></span>
+							</div>
+							<div class="form-group">
+								<label asp-for="ParaBirimi">Para Birimi:</label>
+								<select class="form-control" asp-for="ParaBirimi" asp-items="@Html.GetEnumSelectList<ParaBirimi>()"></select>
+							</div>
+
+						</div>
+					</div>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+					<div class="form-group">
+						<input type="submit" value="Save" class="btn btn-primary" />
+					</div>
+				</div>
+			</form>
+		</div>
+	</div>
+</div>
