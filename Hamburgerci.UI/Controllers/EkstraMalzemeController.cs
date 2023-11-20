@@ -46,6 +46,17 @@ namespace Hamburgerci.UI.Controllers
             return RedirectToAction("Index");
         }
 
+
+
+		//public async Task<IActionResult> EkstraMalzemeDuzenle(int id)
+		//{
+		//	await _ekstraMalzemeService.GetById(id);
+  //          return View();
+		//}
+
+
+
+
 		[HttpPost]
         public async Task<IActionResult> EkstraMalzemeDuzenle(EkstraMalzemeDTO model)
         {
