@@ -11,7 +11,7 @@ namespace Hamburgerci.Application.Models.VMs
 	{
 		public int Id { get; set; }
 		public string Adi { get; set; }
-		public decimal Fiyati { get; set; }
+		public double Fiyati { get; set; }
 		public ParaBirimi ParaBirimi { get; set; }
 	}
 }

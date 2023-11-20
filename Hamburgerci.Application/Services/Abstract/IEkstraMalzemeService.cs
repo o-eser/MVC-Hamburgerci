@@ -15,5 +15,6 @@ namespace Hamburgerci.Application.Services.Abstract
 		Task Delete(int id);
 		Task<EkstraMalzemeDTO> GetById(int id);
 		Task<List<EkstraMalzemeDTO>?> GetAll();
-	}
+        Task<List<EkstraMalzemeDTO>?> Search(string searchText);
+    }
 }

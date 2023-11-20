@@ -6,7 +6,7 @@ using Hamburgerci.Repositories.Abstract;
 
 namespace Hamburgerci.Application.Services.Concrete
 {
-	public class EkstraMalzemeService : IEkstraMalzemeService
+    public class EkstraMalzemeService : IEkstraMalzemeService
 	{
 		private readonly IEkstraMalzemeRepository _ekstraMalzemeRepository;
 
@@ -20,7 +20,7 @@ namespace Hamburgerci.Application.Services.Concrete
 			EkstraMalzeme ekstraMalzeme = new EkstraMalzeme
 			{
 				Adi = model.Adi,
-				Fiyati = model.Price,
+				Fiyati = model.Fiyati,
 				ParaBirimi = model.ParaBirimi
 			};
 
@@ -53,7 +53,7 @@ namespace Hamburgerci.Application.Services.Concrete
 			return await _ekstraMalzemeRepository.GetFilteredFirstOrDefault(x => new EkstraMalzemeDTO
 			{
 				Adi = x.Adi,
-				Price = x.Fiyati,
+                Fiyati = x.Fiyati,
 				ParaBirimi = x.ParaBirimi,
 				Id = x.Id,
 			}, g => g.Id == id && g.DataStatus != DataStatus.Deleted);
@@ -70,7 +70,7 @@ namespace Hamburgerci.Application.Services.Concrete
 			}
 
 			ekstraMalzeme.Adi = model.Adi;
-			ekstraMalzeme.Fiyati = model.Price;
+			ekstraMalzeme.Fiyati = model.Fiyati;
 			ekstraMalzeme.ParaBirimi = model.ParaBirimi;
 			ekstraMalzeme.ModifiedDate = DateTime.Now;
 			ekstraMalzeme.DataStatus = DataStatus.Updated;
@@ -84,10 +84,22 @@ namespace Hamburgerci.Application.Services.Concrete
 			return await _ekstraMalzemeRepository.GetFilteredList(x => new EkstraMalzemeDTO
 			{
 				Adi = x.Adi,
-				Price = x.Fiyati,
+                Fiyati = x.Fiyati,
 				ParaBirimi = x.ParaBirimi,
 				Id = x.Id,
 			}, g => g.DataStatus != DataStatus.Deleted) as List<EkstraMalzemeDTO>;
 		}
-	}
+
+        public async Task<List<EkstraMalzemeDTO>> Search(string searchText)
+        {
+            return await _ekstraMalzemeRepository.GetFilteredList(x => new EkstraMalzemeDTO
+            {
+				Adi = x.Adi,
+				Fiyati=x.Fiyati,
+                ParaBirimi = x.ParaBirimi,
+                Id = x.Id 
+                
+            }, g => g.Adi.Contains(searchText) && g.DataStatus != DataStatus.Deleted) as List<EkstraMalzemeDTO>;
+        }
+    }
 }
