@@ -1,22 +1,17 @@
-﻿@model MenuListingVM
-
-@{
-	Layout = "_AdminLayout";
-}
-
+﻿@model SiparisListingVM
 
 <div class="container">
-	
+
 	<div class="row align-items-start">
 		<div class="col-4">
-			@await Component.InvokeAsync("MenuEkle")
+			@await Component.InvokeAsync("EkstraMalzemeEkle")
 		</div>
 		<div class="col-8">
 			<div class="container-fluid">
 
 				<div class="card shadow">
 					<div class="card-header py-3">
-						<p class="text-primary m-0 fw-bold">Menü Listesi</p>
+						<p class="text-primary m-0 fw-bold">Ekstra Malzeme Listesi</p>
 					</div>
 					<div class="card-body">
 						<div class="row">
@@ -24,7 +19,7 @@
 								<div class="dataTables_length">
 									<label class="form-label">
 										Show 
-										<select class="d-inline-block form-select form-select-sm" id="pageSizeDropdown" asp-for="@Model.Menuler.PageSize">
+										<select class="d-inline-block form-select form-select-sm" id="pageSizeDropdown" asp-for="@Model.Siparisler.PageSize">
 											@* onchange="javascript:this.form.submit()" *@
 											<option value="5">5</option>
 											<option value="10">10</option>
@@ -50,29 +45,29 @@
 							<table class="table my-0">
 								<thead>
 									<tr>
-										<th>Menü Adı</th>
-										<th class="text-center">Menü Fiyatı</th>
-										<th class="text-center">Para Birimi</th>
+										<th>Sipariş Id</th>
+										<th class="text-center">Menü Boyutu</th>
+										<th class="text-center">Toplam Tutar</th>
 										<th></th>
 										<th></th>
 									</tr>
 								</thead>
 								<tbody>
-									@foreach (var menu in Model.Menuler)
+									@foreach (var siparis in Model.Siparisler)
 									{
 										<tr>
-											<td>@menu.MenuAdi</td>
-											<td class="text-center">@menu.MenuFiyati</td>
-											<td class="text-center">@menu.ParaBirimi</td>
-											<td>@await Component.InvokeAsync("MenuDuzenle",menu)</td>
-											<td><a class="btn btn-danger btn-icon-split" role="button" onclick="confirmDelete('@menu.Id')"><span class="text-white-50 icon"><i class="fas fa-trash me-2"></i></span><span class="text-white text">Delete</span></a></td>
+											<td>@siparis.Id</td>
+											<td class="text-center">@siparis.MenuBoyutu</td>
+											<td class="text-center">@siparis.ToplamTutar</td>
+											<td>@await Component.InvokeAsync("EkstraMalzemeDuzenle",siparis)</td>
+											<td><a class="btn btn-danger btn-icon-split" role="button" onclick="confirmDelete('@siparis.Id')"><span class="text-white-50 icon"><i class="fas fa-trash me-2"></i></span><span class="text-white text">Delete</span></a></td>
 										</tr>
 									}
 								</tbody>
 								<tfoot>
 									<tr>
-										<th>Menü Adı</th>
-										<th class="text-center">Menü Fiyatı</th>
+										<th>Ekstra Malzeme Adı</th>
+										<th class="text-center">Ekstra Malzeme Fiyatı</th>
 										<th class="text-center">Para Birimi</th>
 										<th></th>
 									</tr>
@@ -81,24 +76,24 @@
 						</div>
 						<div class="row">
 							<div class="col-md-6 align-self-center">
-								<p id="dataTable_info" class="dataTables_info" role="status" aria-live="polite">Showing page @(Model.Menuler.PageNumber) to @Model.Menuler.PageCount of @Model.Menuler.TotalItemCount products</p>
+								<p id="dataTable_info" class="dataTables_info" role="status" aria-live="polite">Sayfa sayısı @(Model.Siparisler.PageNumber) / @Model.Siparisler.PageCount of @Model.Siparisler.TotalItemCount malzeme</p>
 							</div>
 							<div class="col-md-6">
 								<nav class="d-lg-flex justify-content-lg-end dataTables_paginate paging_simple_numbers">
 									<ul class="pagination">
-										<li class="page-item @(Model.Menuler.HasPreviousPage ? "" : "disabled")">
-											<a class="page-link" aria-label="Previous" href="@(Model.Menuler.HasPreviousPage ? Url.Action("Index", new { page = Model.Menuler.PageNumber - 1 , pageSize=Model.Menuler.PageSize, searchText=Context.Request.Query["searchText"] }) : "#")">
+										<li class="page-item @(Model.Siparisler.HasPreviousPage ? "" : "disabled")">
+											<a class="page-link" aria-label="Previous" href="@(Model.Siparisler.HasPreviousPage ? Url.Action("Index", new { page = Model.Siparisler.PageNumber - 1 , pageSize=Model.Siparisler.PageSize, searchText=Context.Request.Query["searchText"] }) : "#")">
 												<span aria-hidden="true">«</span>
 											</a>
 										</li>
-										@for (int i = 1; i <= Model.Menuler.PageCount; i++)
+										@for (int i = 1; i <= Model.Siparisler.PageCount; i++)
 										{
-											<li class="page-item @(i == Model.Menuler.PageNumber ? "active" : "")">
-												<a class="page-link" href="@Url.Action("Index", new { page = i, pageSize=Model.Menuler.PageSize,searchText=Context.Request.Query["searchText"] })">@i</a>
+											<li class="page-item @(i == Model.Siparisler.PageNumber ? "active" : "")">
+												<a class="page-link" href="@Url.Action("Index", new { page = i, pageSize=Model.Siparisler.PageSize,searchText=Context.Request.Query["searchText"] })">@i</a>
 											</li>
 										}
-										<li class="page-item @(Model.Menuler.HasNextPage ? "" : "disabled")">
-											<a class="page-link" aria-label="Next" href="@(Model.Menuler.HasNextPage ? Url.Action("Index", new { page = Model.Menuler.PageNumber + 1, pageSize=Model.Menuler.PageSize,searchText=Context.Request.Query["searchText"] }) : "#")">
+										<li class="page-item @(Model.Siparisler.HasNextPage ? "" : "disabled")">
+											<a class="page-link" aria-label="Next" href="@(Model.Siparisler.HasNextPage ? Url.Action("Index", new { page = Model.Siparisler.PageNumber + 1, pageSize=Model.Siparisler.PageSize,searchText=Context.Request.Query["searchText"] }) : "#")">
 												<span aria-hidden="true">»</span>
 											</a>
 										</li>
@@ -107,7 +102,7 @@
 							</div>
 						</div>
 
-						<a class="btn btn-success" asp-action="MenuEkle">New Product</a>
+						<a class="btn btn-success" asp-action="EkstraMalzemeEkle">Yeni Malzeme</a>
 
 					</div>
 				</div>
@@ -125,9 +120,9 @@
 		var searchText = '@Context.Request.Query["searchText"]';
 
 		if (searchText) {
-			var url = "/Menu/Index?pageSize=" + selectedPageSize + "&searchText=" + searchText;
+			var url = "/EkstraMalzeme/Index?pageSize=" + selectedPageSize + "&searchText=" + searchText;
 		} else {
-			var url = "/Menu/Index?pageSize=" + selectedPageSize;
+			var url = "/EkstraMalzeme/Index?pageSize=" + selectedPageSize;
 		}
 
 		window.location.href = url;
@@ -135,7 +130,7 @@
 
 	function confirmDelete(id) {
 		if (confirm("Silmek istediğinize emin misiniz?")) {
-			window.location.href = "/Menu/MenuSil/?id=" + id;
+			window.location.href = "/EkstraMalzeme/EkstraMalzemeSil/?id=" + id;
 		} else {
 
 		}

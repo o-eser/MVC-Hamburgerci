@@ -15,5 +15,6 @@ namespace Hamburgerci.Application.Services.Abstract
 		Task Delete(string id);
 		Task<UpdateSiparisDTO> GetById(string id);
 		Task<List<UpdateSiparisDTO>?> GetAll();
-	}
+        Task<List<UpdateSiparisDTO>?> Search(string searchText);
+    }
 }
