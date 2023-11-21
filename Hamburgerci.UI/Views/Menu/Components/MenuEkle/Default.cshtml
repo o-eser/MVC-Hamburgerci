@@ -1,4 +1,4 @@
-﻿@model Hamburgerci.Application.Models.VMs.MenuListingVM
+﻿@model MenuListingVM
 
 
 <div class="card shadow">
@@ -6,9 +6,9 @@
 		<p class="text-primary m-0 fw-bold">Yeni Menü Ekle</p>
 	</div>
 	<div class="card-body">
-		<form asp-action="MenuEkle" asp-controller="Menu" method="post">
+		<form asp-action="MenuEkle" asp-controller="Menu"	 method="post">
 			<div class="form-group">
-				<label asp-for="Menu">Menu Adı:</label>
+				<label asp-for="Menu.MenuAdi">Adı:</label>
 				<input type="text" class="form-control" asp-for="Menu.MenuAdi" />
 			</div>
 

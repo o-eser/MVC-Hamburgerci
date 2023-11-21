@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Hamburgerci.Application.Models.DTOs;
+using Microsoft.AspNetCore.Mvc;
 
 namespace Hamburgerci.UI.ViewComponents
 {
@@ -6,6 +7,8 @@ namespace Hamburgerci.UI.ViewComponents
 	{
 		public IViewComponentResult Invoke()
 		{
+
+			MenuDTO menu = new MenuDTO();
 			return View();
 		}
 	}

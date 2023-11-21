@@ -4,14 +4,14 @@
 
 	<div class="row align-items-start">
 		<div class="col-4">
-			@await Component.InvokeAsync("EkstraMalzemeEkle")
+			@await Component.InvokeAsync("SiparisEkle",Model.CreateSiparis)
 		</div>
 		<div class="col-8">
 			<div class="container-fluid">
 
 				<div class="card shadow">
 					<div class="card-header py-3">
-						<p class="text-primary m-0 fw-bold">Ekstra Malzeme Listesi</p>
+						<p class="text-primary m-0 fw-bold">Sipariş Listesi</p>
 					</div>
 					<div class="card-body">
 						<div class="row">
@@ -48,6 +48,7 @@
 										<th>Sipariş Id</th>
 										<th class="text-center">Menü Boyutu</th>
 										<th class="text-center">Toplam Tutar</th>
+										<th>Ekstra Malzemeler</th>
 										<th></th>
 										<th></th>
 									</tr>
@@ -59,6 +60,12 @@
 											<td>@siparis.Id</td>
 											<td class="text-center">@siparis.MenuBoyutu</td>
 											<td class="text-center">@siparis.ToplamTutar</td>
+											<td>
+												@foreach (var ekstraMalzeme in siparis.EkstraMalzemeler)
+												{
+													<span>@ekstraMalzeme.Adi x @ekstraMalzeme.Adet</span>
+												}
+											</td>
 											<td>@await Component.InvokeAsync("EkstraMalzemeDuzenle",siparis)</td>
 											<td><a class="btn btn-danger btn-icon-split" role="button" onclick="confirmDelete('@siparis.Id')"><span class="text-white-50 icon"><i class="fas fa-trash me-2"></i></span><span class="text-white text">Delete</span></a></td>
 										</tr>

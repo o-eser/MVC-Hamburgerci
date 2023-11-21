@@ -12,6 +12,7 @@ namespace Hamburgerci.Entities.Concrete
         public int Id { get; set; }
         public string MenuAdi { get; set; }
         public double MenuFiyati { get; set; }
+        public int Adet { get; set; }
         public ParaBirimi ParaBirimi { get; set; }
 
         public ICollection<Siparis> Siparisler { get; set; }
