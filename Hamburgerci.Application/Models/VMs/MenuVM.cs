@@ -13,5 +13,6 @@ namespace Hamburgerci.Application.Models.VMs
 		public string MenuAdi { get; set; }
 		public double MenuFiyati { get; set; }
 		public ParaBirimi ParaBirimi { get; set; }
+		public int Adet { get; set; }
 	}
 }

@@ -38,14 +38,16 @@ namespace Hamburgerci.Application.Services.Concrete
                     Id = x.Id,
                     MenuAdi = x.MenuAdi,
                     MenuFiyati = x.MenuFiyati,
-                    ParaBirimi = x.ParaBirimi
+                    ParaBirimi = x.ParaBirimi,
+                    Adet=x.Adet                    
                 }).ToList(),
                 EkstraMalzemeler = model.EkstraMalzemeler.Select(x => new EkstraMalzeme
                 {
                     Id = x.Id,
                     Adi = x.Adi,
                     Fiyati = x.Fiyati,
-                    ParaBirimi = x.ParaBirimi
+                    ParaBirimi = x.ParaBirimi,
+                    Adet=x.Adet
                 }).ToList(),
                 CreatedDate = DateTime.Now,
                 DataStatus = DataStatus.Inserted
@@ -63,17 +65,19 @@ namespace Hamburgerci.Application.Services.Concrete
                     Id = x.Id,
                     Adi = x.Adi,
                     Fiyati = x.Fiyati,
-                    ParaBirimi = x.ParaBirimi
+                    ParaBirimi = x.ParaBirimi,
+                    Adet=x.Adet
                 },
-                   x => x.DataStatus != DataStatus.Deleted) as ICollection<EkstraMalzemeVM>,
+                   x => x.DataStatus != DataStatus.Deleted) as List<EkstraMalzemeVM>,
 
                 Menuler = await _menuRepository.GetFilteredList(x => new MenuVM
                 {
                     Id = x.Id,
                     MenuAdi = x.MenuAdi,
                     MenuFiyati = x.MenuFiyati,
-                    ParaBirimi = x.ParaBirimi
-                }, x => x.DataStatus != DataStatus.Deleted) as ICollection<MenuVM>
+                    ParaBirimi = x.ParaBirimi,
+                    Adet=x.Adet
+                }, x => x.DataStatus != DataStatus.Deleted) as List<MenuVM>
             };
 
             return createSiparis;
@@ -108,14 +112,16 @@ namespace Hamburgerci.Application.Services.Concrete
                     Id = x.Id,
                     Adi = x.Adi,
                     Fiyati = x.Fiyati,
-                    ParaBirimi = x.ParaBirimi
+                    ParaBirimi = x.ParaBirimi,
+                    Adet=x.Adet
                 }).ToList(),
                 Menuler = x.Menuler.Select(x => new MenuVM
                 {
                     Id = x.Id,
                     MenuAdi = x.MenuAdi,
                     MenuFiyati = x.MenuFiyati,
-                    ParaBirimi = x.ParaBirimi
+                    ParaBirimi = x.ParaBirimi,
+                    Adet=x.Adet
                 }).ToList(),
                 MenuBoyutu = x.MenuBoyutu,
                 SiparisAdeti = x.SiparisAdeti,
@@ -134,14 +140,16 @@ namespace Hamburgerci.Application.Services.Concrete
                     Id = x.Id,
                     Adi = x.Adi,
                     Fiyati = x.Fiyati,
-                    ParaBirimi = x.ParaBirimi
+                    ParaBirimi = x.ParaBirimi,
+                    Adet=x.Adet
                 }).ToList(),
                 Menuler = x.Menuler.Select(x => new MenuVM
                 {
                     Id = x.Id,
                     MenuAdi = x.MenuAdi,
                     MenuFiyati = x.MenuFiyati,
-                    ParaBirimi = x.ParaBirimi
+                    ParaBirimi = x.ParaBirimi,
+                    Adet=x.Adet
                 }).ToList(),
                 MenuBoyutu = x.MenuBoyutu,
                 SiparisAdeti = x.SiparisAdeti,
@@ -158,14 +166,16 @@ namespace Hamburgerci.Application.Services.Concrete
                     Id = x.Id,
                     Adi = x.Adi,
                     Fiyati = x.Fiyati,
-                    ParaBirimi = x.ParaBirimi
+                    ParaBirimi = x.ParaBirimi,
+                    Adet=x.Adet
                 }).ToList(),
                 Menuler = x.Menuler.Select(x => new MenuVM
                 {
                     Id = x.Id,
                     MenuAdi = x.MenuAdi,
                     MenuFiyati = x.MenuFiyati,
-                    ParaBirimi = x.ParaBirimi
+                    ParaBirimi = x.ParaBirimi,
+                    Adet=x.Adet
                 }).ToList(),
                 MenuBoyutu = x.MenuBoyutu,
                 SiparisAdeti = x.SiparisAdeti,
@@ -191,14 +201,16 @@ namespace Hamburgerci.Application.Services.Concrete
                 Id = x.Id,
                 MenuAdi = x.MenuAdi,
                 MenuFiyati = x.MenuFiyati,
-                ParaBirimi = x.ParaBirimi
+                ParaBirimi = x.ParaBirimi,
+                Adet=x.Adet
             }).ToList();
             siparis.EkstraMalzemeler = model.EkstraMalzemeler.Select(x => new EkstraMalzeme
             {
                 Id = x.Id,
                 Adi = x.Adi,
                 Fiyati = x.Fiyati,
-                ParaBirimi = x.ParaBirimi
+                ParaBirimi = x.ParaBirimi,
+                Adet=x.Adet
             }).ToList();
             siparis.DataStatus = DataStatus.Updated;
             siparis.ModifiedDate = DateTime.Now;

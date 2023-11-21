@@ -1,4 +1,5 @@
-﻿using Hamburgerci.Application.Models.VMs;
+﻿using Hamburgerci.Application.Models.DTOs;
+using Hamburgerci.Application.Models.VMs;
 using Hamburgerci.Application.Services.Abstract;
 using Hamburgerci.Application.Services.Concrete;
 using Microsoft.AspNetCore.Mvc;
@@ -26,8 +27,17 @@ namespace Hamburgerci.UI.Controllers
                 siparisler = await _siparisService.Search(searchText);
                 vm.Siparisler = siparisler.ToPagedList(page, pageSize);
             }
+            vm.CreateSiparis= await _siparisService.CreatePost();
 
             return View(vm);
         }
+
+        [HttpPost]
+        public async Task<IActionResult> SiparisEkle(SiparisListingVM model)
+        {
+            return RedirectToAction("Index");
+        }
+
+       
     }
 }
