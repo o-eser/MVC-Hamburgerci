@@ -361,6 +361,7 @@ MigrationBackup/
 
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
+<<<<<<< HEAD
 /Hamburgerci.Repositories/Concrete/SiparisRepository.cs
 /Hamburgerci.Repositories/Concrete/EkstraMalzemeRepository.cs
 /Hamburgerci.Repositories/Abstract/ISiparisRepository.cs
@@ -373,3 +374,9 @@ FodyWeavers.xsd
 /Hamburgerci.UI/appsettings.json
 /Hamburgerci.UI/appsettings.json
 /.gitignore
+=======
+/Hamburgerci.UI/Models/Data/SeedData.cs
+/Hamburgerci.repositories/Context
+/Hamburgerci.Entities
+/Hamburgerci.repositories
+>>>>>>> commit stages
