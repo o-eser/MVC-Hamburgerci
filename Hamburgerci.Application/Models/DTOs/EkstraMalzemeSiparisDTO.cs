@@ -12,5 +12,6 @@ namespace Hamburgerci.Application.Models.DTOs
 		public string SiparisId { get; set; }
 
         public int EkstraMalzemeAdeti { get; set; }
+        public string EkstraMazlemeAdi { get; set; }
     }
 }

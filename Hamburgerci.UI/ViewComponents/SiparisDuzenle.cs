@@ -3,11 +3,12 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Hamburgerci.UI.ViewComponents
 {
-	public class MenuEkle: ViewComponent
+	public class SiparisDuzenle:ViewComponent
 	{
-		public IViewComponentResult Invoke()
+
+		public IViewComponentResult Invoke(UpdateSiparisDTO model)
 		{
-			return View();
+			return View(model);
 		}
 	}
 }

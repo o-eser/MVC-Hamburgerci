@@ -15,7 +15,10 @@ namespace Hamburgerci.Application.Models.DTOs
 		public int SiparisAdeti { get; set; }
 		public double? ToplamTutar { get; set; }
 
-		public ICollection<MenuVM> Menuler { get; set; }
-		public ICollection<EkstraMalzemeVM> EkstraMalzemeler { get; set; }
+		public List<MenuSiparisDTO> MenuSiparis { get; set; }
+		public List<EkstraMalzemeSiparisDTO> EkstraMalzemeSiparis { get; set; }
+
+		public List<MenuVM> Menuler { get; set; }
+		public List<EkstraMalzemeVM> EkstraMalzemeler { get; set; }
 	}
 }
