@@ -12,6 +12,8 @@ namespace Hamburgerci.Application.Models.VMs
 		public string Id { get; set; }
 		public MenuBoyutu MenuBoyutu { get; set; }
 		public int SiparisAdeti { get; set; }
+		public int EkstraMalzemeAdeti { get; set; }
+		public int MenuAdeti { get; set; }
 		public double ToplamTutar { get; set; }
 
 		public ICollection<MenuVM> Menuler { get; set; }

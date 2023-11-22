@@ -1,4 +1,5 @@
-﻿using Hamburgerci.Entities.Abstract;
+﻿using Hamburgerci.Domain.Entities.Concrete;
+using Hamburgerci.Entities.Abstract;
 using Hamburgerci.Entities.Enum;
 
 namespace Hamburgerci.Entities.Concrete
@@ -7,10 +8,9 @@ namespace Hamburgerci.Entities.Concrete
     {
         public int Id { get; set; }
         public string Adi { get; set; }
-        public int Adet { get; set; }
         public double Fiyati { get; set; }
         public ParaBirimi ParaBirimi { get; set; }
 
-        public ICollection<Siparis> Siparisler { get; set; }
+        public ICollection<EkstraMalzemeSiparis> EkstraMalzemeSiparisler { get; set; }
     }
 }

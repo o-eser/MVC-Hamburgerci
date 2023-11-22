@@ -1,4 +1,5 @@
-﻿using Hamburgerci.Entities.Abstract;
+﻿using Hamburgerci.Domain.Entities.Concrete;
+using Hamburgerci.Entities.Abstract;
 using Hamburgerci.Entities.Enum;
 
 namespace Hamburgerci.Entities.Concrete
@@ -7,14 +8,14 @@ namespace Hamburgerci.Entities.Concrete
     {
         public Menu()
         {
-            Siparisler = new HashSet<Siparis>();
+			MenuSiparisler = new HashSet<MenuSiparis>();
         }
         public int Id { get; set; }
         public string MenuAdi { get; set; }
         public double MenuFiyati { get; set; }
-        public int Adet { get; set; }
         public ParaBirimi ParaBirimi { get; set; }
 
-        public ICollection<Siparis> Siparisler { get; set; }
+
+        public ICollection<MenuSiparis> MenuSiparisler { get; set; }
     }
 }

@@ -1,20 +1,21 @@
-﻿using Hamburgerci.Entities.Abstract;
+﻿using Hamburgerci.Domain.Entities.Concrete;
+using Hamburgerci.Entities.Abstract;
 using Hamburgerci.Entities.Enum;
 
 namespace Hamburgerci.Entities.Concrete
 {
-    public class Siparis : BaseEntity, IEntity<string>
+    public class Siparis : BaseEntity, IEntity<int>
     {
-        public string Id { get; set; }
+        public int Id { get; set; }
         public MenuBoyutu MenuBoyutu { get; set; }
         public int SiparisAdeti { get; set; }
-        public double ToplamTutar { get; set; }
+        public double? ToplamTutar { get; set; }
 
-        public ICollection<Menu> Menuler { get; set; }
+        public ICollection<MenuSiparis>? MenuSiparisler { get; set; }
 
-        public ICollection<EkstraMalzeme> EkstraMalzemeler { get; set; }
-        public int KullaniciId { get; set; }
-        public Kullanici Kullanici { get; set; }
+        public ICollection<EkstraMalzemeSiparis>? EkstraMalzemeSiparisler { get; set; }
+        public int? KullaniciId { get; set; }
+        public Kullanici? Kullanici { get; set; }
 
     }
 }

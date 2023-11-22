@@ -1,6 +1,8 @@
 using Hamburgerci.Application.Services.Abstract;
 using Hamburgerci.Application.Services.Concrete;
+using Hamburgerci.Domain.Repositories;
 using Hamburgerci.Entities.Concrete;
+using Hamburgerci.Infrastructure.Repositories;
 using Hamburgerci.Repositories.Abstract;
 using Hamburgerci.Repositories.Concrete;
 using Hamburgerci.Repositories.Context;
@@ -21,6 +23,8 @@ builder.Services.AddScoped<IEkstraMalzemeRepository, EkstraMalzemeRepository>();
 builder.Services.AddScoped<IEkstraMalzemeService, EkstraMalzemeService>();
 builder.Services.AddScoped<IMenuService, MenuService>();
 builder.Services.AddScoped<IMenuRepository, MenuRepository>();
+builder.Services.AddScoped<IMenuSiparisRepository, MenuSiparisRepository>();
+builder.Services.AddScoped<IEkstraMalzemeSiparisRepository, EkstraMalzemeSiparisRepository>();
 
 builder.Services.AddIdentity<Kullanici, IdentityRole<int>>(options =>
 {

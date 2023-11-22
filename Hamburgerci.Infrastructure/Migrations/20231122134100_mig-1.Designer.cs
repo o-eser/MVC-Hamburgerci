@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Hamburgerci.Infrastructure.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20231120064730_first")]
-    partial class first
+    [Migration("20231122134100_mig-1")]
+    partial class mig1
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -24,19 +24,64 @@ namespace Hamburgerci.Infrastructure.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
 
-            modelBuilder.Entity("EkstraMalzemeSiparis", b =>
+            modelBuilder.Entity("Hamburgerci.Domain.Entities.Concrete.EkstraMalzemeSiparis", b =>
                 {
-                    b.Property<int>("EkstraMalzemelerId")
+                    b.Property<int>("EkstraMalzemeId")
                         .HasColumnType("int");
 
-                    b.Property<string>("SiparislerId")
-                        .HasColumnType("nvarchar(450)");
+                    b.Property<int>("SiparisId")
+                        .HasColumnType("int");
 
-                    b.HasKey("EkstraMalzemelerId", "SiparislerId");
+                    b.Property<int>("Adet")
+                        .HasColumnType("int");
 
-                    b.HasIndex("SiparislerId");
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("datetime2");
 
-                    b.ToTable("SiparisEsktraMalzemeler", (string)null);
+                    b.Property<int>("DataStatus")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime?>("DeletedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("ModifiedDate")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("EkstraMalzemeId", "SiparisId");
+
+                    b.HasIndex("SiparisId");
+
+                    b.ToTable("EkstraMalzemeSiparis");
+                });
+
+            modelBuilder.Entity("Hamburgerci.Domain.Entities.Concrete.MenuSiparis", b =>
+                {
+                    b.Property<int>("MenuId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("SiparisId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Adet")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("DataStatus")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime?>("DeletedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("ModifiedDate")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("MenuId", "SiparisId");
+
+                    b.HasIndex("SiparisId");
+
+                    b.ToTable("MenuSiparis");
                 });
 
             modelBuilder.Entity("Hamburgerci.Entities.Concrete.EkstraMalzeme", b =>
@@ -195,8 +240,11 @@ namespace Hamburgerci.Infrastructure.Migrations
 
             modelBuilder.Entity("Hamburgerci.Entities.Concrete.Siparis", b =>
                 {
-                    b.Property<string>("Id")
-                        .HasColumnType("nvarchar(450)");
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
                     b.Property<DateTime>("CreatedDate")
                         .HasColumnType("datetime2");
@@ -207,7 +255,7 @@ namespace Hamburgerci.Infrastructure.Migrations
                     b.Property<DateTime?>("DeletedDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("KullaniciId")
+                    b.Property<int?>("KullaniciId")
                         .HasColumnType("int");
 
                     b.Property<int>("MenuBoyutu")
@@ -219,7 +267,7 @@ namespace Hamburgerci.Infrastructure.Migrations
                     b.Property<int>("SiparisAdeti")
                         .HasColumnType("int");
 
-                    b.Property<double>("ToplamTutar")
+                    b.Property<double?>("ToplamTutar")
                         .HasColumnType("float");
 
                     b.HasKey("Id");
@@ -227,21 +275,6 @@ namespace Hamburgerci.Infrastructure.Migrations
                     b.HasIndex("KullaniciId");
 
                     b.ToTable("Siparisler");
-                });
-
-            modelBuilder.Entity("MenuSiparis", b =>
-                {
-                    b.Property<int>("MenulerId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("SiparislerId")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.HasKey("MenulerId", "SiparislerId");
-
-                    b.HasIndex("SiparislerId");
-
-                    b.ToTable("SiparisMenuler", (string)null);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole<int>", b =>
@@ -377,45 +410,51 @@ namespace Hamburgerci.Infrastructure.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
-            modelBuilder.Entity("EkstraMalzemeSiparis", b =>
+            modelBuilder.Entity("Hamburgerci.Domain.Entities.Concrete.EkstraMalzemeSiparis", b =>
                 {
-                    b.HasOne("Hamburgerci.Entities.Concrete.EkstraMalzeme", null)
-                        .WithMany()
-                        .HasForeignKey("EkstraMalzemelerId")
+                    b.HasOne("Hamburgerci.Entities.Concrete.EkstraMalzeme", "EkstraMalzeme")
+                        .WithMany("EkstraMalzemeSiparisler")
+                        .HasForeignKey("EkstraMalzemeId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Hamburgerci.Entities.Concrete.Siparis", null)
-                        .WithMany()
-                        .HasForeignKey("SiparislerId")
+                    b.HasOne("Hamburgerci.Entities.Concrete.Siparis", "Siparis")
+                        .WithMany("EkstraMalzemeSiparisler")
+                        .HasForeignKey("SiparisId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("EkstraMalzeme");
+
+                    b.Navigation("Siparis");
+                });
+
+            modelBuilder.Entity("Hamburgerci.Domain.Entities.Concrete.MenuSiparis", b =>
+                {
+                    b.HasOne("Hamburgerci.Entities.Concrete.Menu", "Menu")
+                        .WithMany("MenuSiparisler")
+                        .HasForeignKey("MenuId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Hamburgerci.Entities.Concrete.Siparis", "Siparis")
+                        .WithMany("MenuSiparisler")
+                        .HasForeignKey("SiparisId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Menu");
+
+                    b.Navigation("Siparis");
                 });
 
             modelBuilder.Entity("Hamburgerci.Entities.Concrete.Siparis", b =>
                 {
                     b.HasOne("Hamburgerci.Entities.Concrete.Kullanici", "Kullanici")
                         .WithMany("Siparisler")
-                        .HasForeignKey("KullaniciId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("KullaniciId");
 
                     b.Navigation("Kullanici");
-                });
-
-            modelBuilder.Entity("MenuSiparis", b =>
-                {
-                    b.HasOne("Hamburgerci.Entities.Concrete.Menu", null)
-                        .WithMany()
-                        .HasForeignKey("MenulerId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Hamburgerci.Entities.Concrete.Siparis", null)
-                        .WithMany()
-                        .HasForeignKey("SiparislerId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<int>", b =>
@@ -469,9 +508,26 @@ namespace Hamburgerci.Infrastructure.Migrations
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("Hamburgerci.Entities.Concrete.EkstraMalzeme", b =>
+                {
+                    b.Navigation("EkstraMalzemeSiparisler");
+                });
+
             modelBuilder.Entity("Hamburgerci.Entities.Concrete.Kullanici", b =>
                 {
                     b.Navigation("Siparisler");
+                });
+
+            modelBuilder.Entity("Hamburgerci.Entities.Concrete.Menu", b =>
+                {
+                    b.Navigation("MenuSiparisler");
+                });
+
+            modelBuilder.Entity("Hamburgerci.Entities.Concrete.Siparis", b =>
+                {
+                    b.Navigation("EkstraMalzemeSiparisler");
+
+                    b.Navigation("MenuSiparisler");
                 });
 #pragma warning restore 612, 618
         }

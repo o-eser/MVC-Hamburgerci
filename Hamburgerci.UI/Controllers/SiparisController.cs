@@ -19,7 +19,7 @@ namespace Hamburgerci.UI.Controllers
         public async Task<IActionResult> Index(string searchText, int pageSize = 5, int page = 1)
         {
             SiparisListingVM vm = new SiparisListingVM();
-            var siparisler = await _siparisService.GetAll();
+            var siparisler = new List<UpdateSiparisDTO>();
             vm.Siparisler = siparisler.ToPagedList(pageNumber: page, pageSize: pageSize);
 
             if (!String.IsNullOrEmpty(searchText))
@@ -27,7 +27,9 @@ namespace Hamburgerci.UI.Controllers
                 siparisler = await _siparisService.Search(searchText);
                 vm.Siparisler = siparisler.ToPagedList(page, pageSize);
             }
-            vm.CreateSiparis= await _siparisService.CreatePost();
+            vm.CreateSiparis= await _siparisService.CreateSiparis();
+
+            
 
             return View(vm);
         }
@@ -35,6 +37,9 @@ namespace Hamburgerci.UI.Controllers
         [HttpPost]
         public async Task<IActionResult> SiparisEkle(SiparisListingVM model)
         {
+            model.CreateSiparis.EkstraMalzemeSiparisler.AddRange(model.CreateSiparis.EkstraMalzemeler.
+                Where(x => x.ParaBirimi != 0).
+                Select(x => new EkstraMalzemeSiparisDTO { EkstraMalzemeId = x.Id }));
             return RedirectToAction("Index");
         }
 
