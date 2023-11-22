@@ -11,5 +11,6 @@ namespace Hamburgerci.Application.Models.DTOs
 		public int MenuId { get; set; }
 		public string? SiparisId { get; set; }
 		public int MenuAdeti { get; set; }
-	}
+        public string MenuAdi { get; set; }
+    }
 }

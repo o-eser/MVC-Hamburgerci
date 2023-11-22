@@ -48,6 +48,7 @@
 										<th>Sipariş Id</th>
 										<th class="text-center">Menü Boyutu</th>
 										<th class="text-center">Toplam Tutar</th>
+										<th>Menü</th>
 										<th>Ekstra Malzemeler</th>
 										<th></th>
 										<th></th>
@@ -61,12 +62,18 @@
 											<td class="text-center">@siparis.MenuBoyutu</td>
 											<td class="text-center">@siparis.ToplamTutar</td>
 											<td>
-												@foreach (var ekstraMalzeme in siparis.EkstraMalzemeler)
+												@foreach (var menu in siparis.MenuSiparis)
 												{
-													<span>@ekstraMalzeme.Adi x @ekstraMalzeme</span>
+													<span>@menu.MenuAdi x @menu.MenuAdeti Adet</span>
 												}
 											</td>
-											<td>@await Component.InvokeAsync("EkstraMalzemeDuzenle",siparis)</td>
+											<td>
+												@foreach (var ekstraMalzeme in siparis.EkstraMalzemeSiparis)
+												{
+													<span>@ekstraMalzeme.EkstraMazlemeAdi x @ekstraMalzeme.EkstraMalzemeAdeti Adet</span>
+												}
+											</td>
+											<td>@await Component.InvokeAsync("SiparisDuzenle",siparis)</td>
 											<td><a class="btn btn-danger btn-icon-split" role="button" onclick="confirmDelete('@siparis.Id')"><span class="text-white-50 icon"><i class="fas fa-trash me-2"></i></span><span class="text-white text">Delete</span></a></td>
 										</tr>
 									}
@@ -127,9 +134,9 @@
 		var searchText = '@Context.Request.Query["searchText"]';
 
 		if (searchText) {
-			var url = "/EkstraMalzeme/Index?pageSize=" + selectedPageSize + "&searchText=" + searchText;
+			var url = "/Siparis/Index?pageSize=" + selectedPageSize + "&searchText=" + searchText;
 		} else {
-			var url = "/EkstraMalzeme/Index?pageSize=" + selectedPageSize;
+			var url = "/Siparis/Index?pageSize=" + selectedPageSize;
 		}
 
 		window.location.href = url;
@@ -137,7 +144,7 @@
 
 	function confirmDelete(id) {
 		if (confirm("Silmek istediğinize emin misiniz?")) {
-			window.location.href = "/EkstraMalzeme/EkstraMalzemeSil/?id=" + id;
+			window.location.href = "/Siparis/SiparisSil/?id=" + id;
 		} else {
 
 		}
