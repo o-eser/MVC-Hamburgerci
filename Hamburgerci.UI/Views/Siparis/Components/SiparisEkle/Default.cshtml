@@ -26,17 +26,21 @@
 								Menüler
 							</button>
 						</h2>
-						@foreach (var menu in Model.CreateSiparis.Menuler)
+						@for (int i = 0; i < Model.CreateSiparis.Menuler.Count; i++)
 						{
 							<div id="flush-collapseOne" class="accordion-collapse collapse" aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlush">
 
 								<div class="accordion-body">
 									<div class="container">
 										<div class="row ">
-											<input class="form-check-input me-1 col-4" type="checkbox" value="@menu" name="Menuler">
-											@menu.MenuAdi
+											<input class="form-check-input me-1 col-4" type="checkbox" value="@Model.CreateSiparis.Menuler[i]" name="Menuler">
+											@Model.CreateSiparis.Menuler[i].MenuAdi
+											<input type="number" class="form-control col-4" asp-for="@Model.CreateSiparis.Menuler[i].Adet" />
 
-											<input type="number" class="form-control col-4" asp-for="@menu.Adet" />
+											<input type="hidden" class="form-control " asp-for="@Model.CreateSiparis.Menuler[i].Id" />
+											<input type="hidden" class="form-control " asp-for="@Model.CreateSiparis.Menuler[i].ParaBirimi" />
+											<input type="hidden" class="form-control " asp-for="@Model.CreateSiparis.Menuler[i].MenuFiyati" />
+											<input type="hidden" class="form-control " asp-for="@Model.CreateSiparis.Menuler[i].MenuAdi" />
 										</div>
 									</div>
 								</div>
@@ -51,17 +55,22 @@
 								Ekstra Malzemeler
 							</button>
 						</h2>
-						@foreach (var ekstraMalzeme in Model.CreateSiparis.EkstraMalzemeler)
+						@for (int i = 0; i < Model.CreateSiparis.EkstraMalzemeler.Count; i++)
 						{
 							<div id="flush-collapseTwo" class="accordion-collapse collapse" aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlush">
-
+								
 								<div class="accordion-body">
 									<div class="container">
 										<div class="row ">
-											<input class="form-check-input me-1 col-4" type="checkbox" value="@ekstraMalzeme" name="EkstraMalzemeler">
-											@ekstraMalzeme.Adi
+											<input class="form-check-input me-1 col-4" type="checkbox" value="@Model.CreateSiparis.EkstraMalzemeler[i]" name="selectedItems[@i].Id">
+											@Model.CreateSiparis.EkstraMalzemeler[i].Adi
 
-											<input type="number" class="form-control col-4" asp-for="@ekstraMalzeme.Adet" />
+											<input type="number" class="form-control col-4" asp-for="@Model.CreateSiparis.EkstraMalzemeler[i].Adet" />
+
+											<input type="hidden" class="form-control " asp-for="@Model.CreateSiparis.EkstraMalzemeler[i].Id" />
+											<input type="hidden" class="form-control " asp-for="@Model.CreateSiparis.EkstraMalzemeler[i].ParaBirimi" />
+											<input type="hidden" class="form-control " asp-for="@Model.CreateSiparis.EkstraMalzemeler[i].Fiyati" />
+											<input type="hidden" class="form-control " asp-for="@Model.CreateSiparis.EkstraMalzemeler[i].Adi" />
 										</div>
 									</div>
 								</div>

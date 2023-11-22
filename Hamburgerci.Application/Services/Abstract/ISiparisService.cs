@@ -10,10 +10,10 @@ namespace Hamburgerci.Application.Services.Abstract
 	public interface ISiparisService
 	{
 		Task Create(CreateSiparisDTO model);
-		Task<CreateSiparisDTO> CreatePost();
+		Task<CreateSiparisDTO> CreateSiparis();
 		Task Update(UpdateSiparisDTO model);
-		Task Delete(string id);
-		Task<UpdateSiparisDTO> GetById(string id);
+		Task Delete(int id);
+		Task<UpdateSiparisDTO> GetById(int id);
 		Task<List<UpdateSiparisDTO>?> GetAll();
         Task<List<UpdateSiparisDTO>?> Search(string searchText);
     }

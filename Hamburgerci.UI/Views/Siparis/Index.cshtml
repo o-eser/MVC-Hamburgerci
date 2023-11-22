@@ -63,7 +63,7 @@
 											<td>
 												@foreach (var ekstraMalzeme in siparis.EkstraMalzemeler)
 												{
-													<span>@ekstraMalzeme.Adi x @ekstraMalzeme.Adet</span>
+													<span>@ekstraMalzeme.Adi x @ekstraMalzeme</span>
 												}
 											</td>
 											<td>@await Component.InvokeAsync("EkstraMalzemeDuzenle",siparis)</td>

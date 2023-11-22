@@ -10,10 +10,10 @@ namespace Hamburgerci.Application.Models.DTOs
 {
 	public class UpdateSiparisDTO
 	{
-		public string Id { get; set; }
+		public int Id { get; set; }
 		public MenuBoyutu MenuBoyutu { get; set; }
 		public int SiparisAdeti { get; set; }
-		public double ToplamTutar { get; set; }
+		public double? ToplamTutar { get; set; }
 
 		public ICollection<MenuVM> Menuler { get; set; }
 		public ICollection<EkstraMalzemeVM> EkstraMalzemeler { get; set; }
