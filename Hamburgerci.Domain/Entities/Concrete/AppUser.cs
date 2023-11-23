@@ -9,14 +9,15 @@ using Microsoft.AspNetCore.Identity;
 
 namespace Hamburgerci.Entities.Concrete
 {
-    public class Kullanici : IdentityUser<int>, IBaseEntity
+    public class AppUser : IdentityUser<int>, IBaseEntity
     {
-        public Kullanici()
+        public AppUser()
         {
             CreatedDate = DateTime.Now;
             DataStatus = DataStatus.Inserted;
         }
         public string FirstName { get; set; }
+        public string Password { get; set; }
         public DateTime CreatedDate { get; set; }
         public DateTime? ModifiedDate { get; set; }
         public DateTime? DeletedDate { get; set; }
