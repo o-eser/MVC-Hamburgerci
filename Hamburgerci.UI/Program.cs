@@ -28,19 +28,27 @@ builder.Services.AddScoped<IEkstraMalzemeSiparisRepository, EkstraMalzemeSiparis
 builder.Services.AddScoped<IAppUserRepository, AppUserRepository>();
 builder.Services.AddScoped<IAppUserService, AppUserService>();
 
-builder.Services.AddIdentity<AppUser, IdentityRole<int>>(options =>
+builder.Services.AddIdentity<AppUser, IdentityRole<int>>(opt =>
 {
-    options.SignIn.RequireConfirmedEmail = false;
-    options.SignIn.RequireConfirmedPhoneNumber = false;
-    options.SignIn.RequireConfirmedAccount = false;
-    options.Password.RequireUppercase = false;
-    options.Password.RequireNonAlphanumeric = false;
-    options.Password.RequireLowercase = false;
-    options.Password.RequiredLength = 3;
+    opt.SignIn.RequireConfirmedEmail = false;
+    opt.SignIn.RequireConfirmedPhoneNumber = false;
+    opt.SignIn.RequireConfirmedAccount = false;
+    opt.User.RequireUniqueEmail = false;
+    opt.Password.RequireUppercase = false;
+    opt.Password.RequireNonAlphanumeric = false;
+    opt.Password.RequiredLength = 3;
+    opt.Password.RequireLowercase = false;
 }
 ).AddEntityFrameworkStores<AppDbContext>().AddDefaultTokenProviders();
 
+//builder.Services.AddDistributedMemoryCache();
 
+//builder.Services.AddSession(options =>
+//{
+//    options.IdleTimeout = TimeSpan.FromMinutes(5);
+//    options.Cookie.HttpOnly = true;
+//    options.Cookie.IsEssential = true;
+//});
 
 
 
@@ -59,8 +67,11 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
-app.UseAuthorization();
 app.UseAuthentication();
+app.UseAuthorization();
+
+//app.UseSession();
+
 //SeedData.Seed(app);
 
 app.MapControllerRoute(
