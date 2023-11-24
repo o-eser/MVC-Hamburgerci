@@ -1,34 +1,58 @@
 ﻿using System.Diagnostics;
 using Hamburgerci.Application.Models.DTOs;
 using Hamburgerci.Application.Services.Abstract;
+using Hamburgerci.Entities.Concrete;
 using Hamburgerci.Entities.Enum;
 using Hamburgerci.UI.Models;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Hamburgerci.UI.Controllers
 {
-    public class HomeController : Controller
+	[Authorize(Roles = "Admin")]
+	public class HomeController : Controller
     {
         private readonly ISiparisService _siparisService;
         private readonly ILogger<HomeController> _logger;
+		private readonly RoleManager<IdentityRole<int>> _roleManager;
+		private readonly UserManager<AppUser> userManager;
 
-
-		public HomeController(ILogger<HomeController> logger, ISiparisService siparisService)
+		public HomeController(ILogger<HomeController> logger, ISiparisService siparisService, RoleManager<IdentityRole<int>> roleManager, UserManager<AppUser> userManager)
 		{
 			_logger = logger;
 			_siparisService = siparisService;
+			_roleManager = roleManager;
+			this.userManager = userManager;
 		}
 
 		public async Task<IActionResult> Index()
         {
-            //CreateSiparisDTO model = new CreateSiparisDTO();
-            //model.MenuBoyutu = MenuBoyutu.Buyuk;
-            //model.SiparisAdeti = 2;
-            //model.MenuSiparisler = new List<MenuSiparisDTO> { new MenuSiparisDTO { MenuAdeti = 2, MenuId = 1 } };
 
-            //await _siparisService.Create(model);
+			// Role Oluşturma
+			//string[] roleNames = { "Admin", "User", "Editor" };
 
-            return View();
+			//IdentityResult roleResult;
+
+			//foreach (var roleName in roleNames)
+			//{
+			//	var roleExist = await _roleManager.RoleExistsAsync(roleName);
+
+			//	if (!roleExist)
+			//	{
+			//		// Rolü oluştur
+			//		roleResult = await _roleManager.CreateAsync(new IdentityRole<int>(roleName));
+			//	}
+			//}
+
+			//var user = await userManager.FindByNameAsync("osman");
+
+			//if (user != null)
+			//{
+			//	await userManager.AddToRoleAsync(user, "Admin");
+			//}
+
+			return View();
         }
 
         public IActionResult Privacy()

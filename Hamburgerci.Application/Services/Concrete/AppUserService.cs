@@ -48,8 +48,7 @@ namespace Hamburgerci.Application.Services.Concrete
 			AppUser user = new AppUser
 			{
 				UserName = model.UserName,
-				Email = model.Email,
-                Password = model.Password
+				Email = model.Email
 			};
 
 			IdentityResult result = await _userManager.CreateAsync(user, model.Password);
