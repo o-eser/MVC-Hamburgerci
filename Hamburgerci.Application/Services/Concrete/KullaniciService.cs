@@ -1,4 +1,9 @@
-﻿using Hamburgerci.Application.Models.DTOs;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using Hamburgerci.Application.Models.DTOs;
 using Hamburgerci.Application.Services.Abstract;
 using Hamburgerci.Entities.Concrete;
 using Hamburgerci.Repositories.Abstract;
@@ -6,13 +11,13 @@ using Microsoft.AspNetCore.Identity;
 
 namespace Hamburgerci.Application.Services.Concrete
 {
-    public class AppUserService : IAppUserService
+    public class KullaniciService : IKullaniciService
 	{
-		private readonly UserManager<AppUser> _userManager;
-		private readonly SignInManager<AppUser> _signInManager;
-		private readonly IAppUserRepository _kullaniciRepository;
+		private readonly UserManager<Kullanici> _userManager;
+		private readonly SignInManager<Kullanici> _signInManager;
+		private readonly IKullaniciRepository _kullaniciRepository;
 
-		public AppUserService(UserManager<AppUser> userManager, SignInManager<AppUser> signInManager, IAppUserRepository kullaniciRepository)
+		public KullaniciService(UserManager<Kullanici> userManager, SignInManager<Kullanici> signInManager, IKullaniciRepository kullaniciRepository)
 		{
 			_userManager = userManager;
 			_signInManager = signInManager;
@@ -45,11 +50,11 @@ namespace Hamburgerci.Application.Services.Concrete
 
 		public async Task<IdentityResult> Register(RegisterDTO model)
 		{
-			AppUser user = new AppUser
+			Kullanici user = new Kullanici
 			{
 				UserName = model.UserName,
 				Email = model.Email,
-                Password = model.Password
+				CreatedDate = DateTime.Now
 			};
 
 			IdentityResult result = await _userManager.CreateAsync(user, model.Password);
@@ -60,7 +65,7 @@ namespace Hamburgerci.Application.Services.Concrete
 
 		public async Task UpdateProfile(UpdateProfileDTO model)
 		{
-			AppUser user = await _kullaniciRepository.GetDefault(x => x.Id == model.Id);
+			Kullanici user = await _kullaniciRepository.GetDefault(x => x.Id == model.Id);
 
 			if (model.Password != null)
 			{
@@ -71,7 +76,7 @@ namespace Hamburgerci.Application.Services.Concrete
 
 			if (model.Email != null)
 			{
-				AppUser isUserEmailExist = await _userManager.FindByEmailAsync(model.Email);
+				Kullanici isUserEmailExist = await _userManager.FindByEmailAsync(model.Email);
 
 				if (isUserEmailExist == null)
 					await _userManager.SetEmailAsync(user, model.Email);
