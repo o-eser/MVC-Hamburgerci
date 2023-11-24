@@ -1,96 +1,95 @@
 ﻿@model UpdateSiparisDTO
 
 <button type="button" class="btn btn-warning btn-icon-split" data-bs-toggle="modal" data-bs-target="#staticBackdrop_@Model.Id">
-	<span class="text-white-50 icon"><i class="fas fa-exclamation-triangle me-2"></i></span><span class="text-white text">Update</span>
+    <span class="text-white-50 icon"><i class="fas fa-exclamation-triangle me-2"></i></span><span class="text-white text">Update</span>
 </button>
 
 <!-- Modal -->
 <div class="modal fade" id="staticBackdrop_@Model.Id" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-	<div class="modal-dialog">
-		<div class="modal-content">
-			<div class="modal-header">
-				<h5 class="modal-title" id="staticBackdropLabel">Modal title</h5>
-				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-			</div>
-			<form asp-action="SiparisDuzenle">
-				<div class="modal-body">
-					<div class="row">
-						<div class="col-md-4">
-							<div asp-validation-summary="ModelOnly" class="text-danger"></div>
-							<div class="form-group">
-								<input asp-for="Id" type="hidden" class="form-control" />
-							</div>
-							<div class="accordion accordion-flush" id="accordionFlushUpdate">
-								<div class="accordion-item">
-									<h2 class="accordion-header" id="flush-headingOneUpdate">
-										<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOneUpdate" aria-expanded="false" aria-controls="flush-collapseOneUpdate">
-											Menüler
-										</button>
-									</h2>
-									@for (int i = 0; i < Model.Menuler.Count; i++)
-									{
-										<div id="flush-collapseOneUpdate" class="accordion-collapse collapse" aria-labelledby="flush-headingOneUpdate" data-bs-parent="#accordionFlushUpdate">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="staticBackdropLabel">Modal title</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form asp-action="SiparisDuzenle">
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                            <div class="form-group">
+                                <input asp-for="Id" type="hidden" class="form-control" />
+                            </div>
 
-											<div class="accordion-body">
-												<div class="container">
-													<div class="row ">
-														<input class="form-check-input me-1 col-4" type="checkbox" value="@Model.Menuler[i]" name="selectedMenu[@i].Id">
-														@Model.Menuler[i].MenuAdi
-														<input type="number" class="form-control col-4" asp-for="@Model.Menuler[i].Adet" />
+                            <!-- Accordion Üst Öğesi -->
+                            <div class="accordion accordion-flush" id="accordionFlushUpdate_@Model.Id">
 
-														<input type="hidden" class="form-control " asp-for="@Model.Menuler[i].Id" />
-														<input type="hidden" class="form-control " asp-for="@Model.Menuler[i].MenuAdi" />
-													</div>
-												</div>
-											</div>
-										</div>
-									}
-								</div>
+                                <!-- Menüler -->
+                                <div class="accordion-item">
+                                    <h2 class="accordion-header" id="flush-headingOneUpdate_@Model.Id">
+                                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOneUpdate_@Model.Id" aria-expanded="false" aria-controls="flush-collapseOneUpdate_@Model.Id">
+                                            Menüler
+                                        </button>
+                                    </h2>
+                                    <div id="flush-collapseOneUpdate_@Model.Id" class="accordion-collapse collapse" aria-labelledby="flush-headingOneUpdate_@Model.Id" data-bs-parent="#accordionFlushUpdate_@Model.Id">
+                                        <div class="accordion-body">
+                                            <div class="container">
+                                                @for (int i = 0; i < Model.Menuler.Count; i++)
+                                                {
+                                                    <div class="row">
+                                                        <input class="form-check-input me-1 col-4" type="checkbox" value="@Model.Menuler[i].Id" name="selectedMenu[@i].Id">
+                                                        @Model.Menuler[i].MenuAdi
+                                                        <input type="number" class="form-control col-4" asp-for="@Model.Menuler[i].Adet" />
+                                                        <input type="hidden" class="form-control" asp-for="@Model.Menuler[i].Id" />
+                                                        <input type="hidden" class="form-control" asp-for="@Model.Menuler[i].MenuAdi" />
+                                                    </div>
+                                                }
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
 
+                                <!-- Ekstra Malzemeler -->
+                                <div class="accordion-item">
+                                    <h2 class="accordion-header" id="flush-headingTwoUpdate_@Model.Id">
+                                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseTwoUpdate_@Model.Id" aria-expanded="false" aria-controls="flush-collapseTwoUpdate_@Model.Id">
+                                            Ekstra Malzemeler
+                                        </button>
+                                    </h2>
+                                    <div id="flush-collapseTwoUpdate_@Model.Id" class="accordion-collapse collapse" aria-labelledby="flush-headingTwoUpdate_@Model.Id" data-bs-parent="#accordionFlushUpdate_@Model.Id">
+                                        <div class="accordion-body">
+                                            <div class="container">
+                                                @for (int i = 0; i < Model.EkstraMalzemeler.Count; i++)
+                                                {
+                                                    <div class="row">
+                                                        <input class="form-check-input me-1 col-4" type="checkbox" value="@Model.EkstraMalzemeler[i].Id" name="selectedEkmalzeme[@i].Id">
+                                                        @Model.EkstraMalzemeler[i].Adi
+                                                        <input type="number" class="form-control col-4" asp-for="@Model.EkstraMalzemeler[i].Adet" />
+                                                        <input type="hidden" class="form-control" asp-for="@Model.EkstraMalzemeler[i].Id" />
+                                                        <input type="hidden" class="form-control" asp-for="@Model.EkstraMalzemeler[i].Adi" />
+                                                    </div>
+                                                }
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
 
-								<div class="accordion-item">
-									<h2 class="accordion-header" id="flush-headingOneUpdate">
-										<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseTwoUpdate" aria-expanded="false" aria-controls="flush-collapseOneUpdate">
-											Ekstra Malzemeler
-										</button>
-									</h2>
-									@for (int i = 0; i < Model.EkstraMalzemeler.Count; i++)
-									{
-										<div id="flush-collapseTwoUpdate" class="accordion-collapse collapse" aria-labelledby="flush-headingOneUpdate" data-bs-parent="#accordionFlushUpdate">
+                            </div>
 
-											<div class="accordion-body">
-												<div class="container">
-													<div class="row ">
-														<input class="form-check-input me-1 col-4" type="checkbox" value="@Model.EkstraMalzemeler[i]" name="selectedEkmalzeme[@i].Id">
-														@Model.EkstraMalzemeler[i].Adi
-
-														<input type="number" class="form-control col-4" asp-for="@Model.EkstraMalzemeler[i].Adet" />
-
-														<input type="hidden" class="form-control " asp-for="@Model.EkstraMalzemeler[i].Id" />
-														<input type="hidden" class="form-control " asp-for="@Model.EkstraMalzemeler[i].Adi" />
-													</div>
-												</div>
-											</div>
-										</div>
-									}
-								</div>
-
-							</div>
-							<div class="form-group">
-								<label asp-for="MenuBoyutu">Menu Boyutu:</label>
-								<select class="form-control" asp-for="MenuBoyutu" asp-items="@Html.GetEnumSelectList<MenuBoyutu>()"></select>
-							</div>
-
-						</div>
-					</div>
-				</div>
-				<div class="modal-footer">
-					<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-					<div class="form-group">
-						<input type="submit" value="Save" class="btn btn-primary" />
-					</div>
-				</div>
-			</form>
-		</div>
-	</div>
+                            <div class="form-group">
+                                <label asp-for="MenuBoyutu">Menu Boyutu:</label>
+                                <select class="form-control" asp-for="MenuBoyutu" asp-items="@Html.GetEnumSelectList<MenuBoyutu>()"></select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <div class="form-group">
+                        <input type="submit" value="Save" class="btn btn-primary" />
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
 </div>

@@ -15,7 +15,6 @@ namespace Hamburgerci.Application.Models.DTOs
             MenuSiparisler = new List<MenuSiparisDTO>();
 			EkstraMalzemeSiparisler = new List<EkstraMalzemeSiparisDTO>();
         }
-        public Guid Id { get; set; }
 		public MenuBoyutu MenuBoyutu { get; set; }
 		public int SiparisAdeti { get; set; }
 		public double ToplamTutar { get; }

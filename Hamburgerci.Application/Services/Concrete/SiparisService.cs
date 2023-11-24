@@ -15,299 +15,399 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Hamburgerci.Application.Services.Concrete
 {
-	public class SiparisService : ISiparisService
-	{
-		private readonly ISiparisRepository _siparisRepository;
-		private readonly IMenuRepository _menuRepository;
-		private readonly IEkstraMalzemeRepository _ekstraMalzemeRepository;
+    public class SiparisService : ISiparisService
+    {
+        private readonly ISiparisRepository _siparisRepository;
+        private readonly IMenuRepository _menuRepository;
+        private readonly IEkstraMalzemeRepository _ekstraMalzemeRepository;
 
-		private readonly IMenuSiparisRepository _msRepository;
-		private readonly IEkstraMalzemeSiparisRepository _esRepository;
+        private readonly IMenuSiparisRepository _msRepository;
+        private readonly IEkstraMalzemeSiparisRepository _esRepository;
 
-		public SiparisService(ISiparisRepository siparisRepository, IMenuRepository menuRepository, IEkstraMalzemeRepository ekstraMalzemeRepository, IMenuSiparisRepository menuSiparisRepository, IEkstraMalzemeSiparisRepository esRepository)
-		{
-			_siparisRepository = siparisRepository;
-			_menuRepository = menuRepository;
-			_ekstraMalzemeRepository = ekstraMalzemeRepository;
-			_msRepository = menuSiparisRepository;
-			_esRepository = esRepository;
-		}
-
-
-		public async Task Create(CreateSiparisDTO model)
-		{
-			Siparis siparis = new Siparis
-			{
-				MenuBoyutu = model.MenuBoyutu,
-				SiparisAdeti = model.SiparisAdeti,
-				ToplamTutar = model.ToplamTutar,
-				CreatedDate = DateTime.Now,
-				DataStatus = DataStatus.Inserted
-			};
-
-			await _siparisRepository.Create(siparis);
+        public SiparisService(ISiparisRepository siparisRepository, IMenuRepository menuRepository, IEkstraMalzemeRepository ekstraMalzemeRepository, IMenuSiparisRepository menuSiparisRepository, IEkstraMalzemeSiparisRepository esRepository)
+        {
+            _siparisRepository = siparisRepository;
+            _menuRepository = menuRepository;
+            _ekstraMalzemeRepository = ekstraMalzemeRepository;
+            _msRepository = menuSiparisRepository;
+            _esRepository = esRepository;
+        }
 
 
-			List<MenuSiparis> menuSiparisler = new List<MenuSiparis>();
+        public async Task Create(CreateSiparisDTO model)
+        {
+            Siparis siparis = new Siparis
+            {
+                MenuBoyutu = model.MenuBoyutu,
+                SiparisAdeti = model.SiparisAdeti,
+                ToplamTutar = model.ToplamTutar,
+                CreatedDate = DateTime.Now,
+                DataStatus = DataStatus.Inserted
+            };
 
-			foreach (var item in model.Menuler)
-			{
-				if (item.Adet != 0)
-				{
-					MenuSiparis ms = new MenuSiparis
-					{
-						MenuId = item.Id,
-						SiparisId = siparis.Id,
-						Adet = item.Adet,
-						DataStatus = DataStatus.Inserted,
-						CreatedDate = DateTime.Now
-					};
-					await _msRepository.Create(ms);
-
-					menuSiparisler.Add(ms);
-				}
-			}
-
-			siparis.MenuSiparisler = menuSiparisler;
-
-			List<EkstraMalzemeSiparis> ekstraMalzemeSiparisler = new List<EkstraMalzemeSiparis>();
-			foreach (var item in model.EkstraMalzemeler)
-			{
-				if (item.Adet != 0)
-				{
-
-					EkstraMalzemeSiparis em = new EkstraMalzemeSiparis
-					{
-						EkstraMalzemeId = item.Id,
-						SiparisId = siparis.Id,
-						Adet = item.Adet,
-						DataStatus = DataStatus.Inserted,
-						CreatedDate = DateTime.Now
-					};
-
-					await _esRepository.Create(em);
-
-					ekstraMalzemeSiparisler.Add(em);
-
-				}
-			}
-
-			siparis.EkstraMalzemeSiparisler = ekstraMalzemeSiparisler;
-
-			await _siparisRepository.Update(siparis);
-		}
-
-		public async Task<CreateSiparisDTO> CreateSiparis()
-		{
-			CreateSiparisDTO createSiparis = new CreateSiparisDTO
-			{
-				EkstraMalzemeler = await _ekstraMalzemeRepository.GetFilteredList(x => new EkstraMalzemeVM
-				{
-					Id = x.Id,
-					Adi = x.Adi,
-					Fiyati = x.Fiyati,
-					ParaBirimi = x.ParaBirimi
-				},
-				   x => x.DataStatus != DataStatus.Deleted) as List<EkstraMalzemeVM>,
-
-				Menuler = await _menuRepository.GetFilteredList(x => new MenuVM
-				{
-					Id = x.Id,
-					MenuAdi = x.MenuAdi,
-					MenuFiyati = x.MenuFiyati,
-					ParaBirimi = x.ParaBirimi
-				}, x => x.DataStatus != DataStatus.Deleted) as List<MenuVM>
-			};
-
-			return createSiparis;
-		}
-
-		public async Task Delete(int id)
-		{
-			Siparis siparis = await _siparisRepository.GetFilteredFirstOrDefault(x => new Siparis
-			{
-				Id = x.Id,
-				MenuBoyutu = x.MenuBoyutu,
-				SiparisAdeti = x.SiparisAdeti,
-				//ToplamTutar=x.ToplamTutar
-				//}, x => new Siparis { Id = x.Id, MenuBoyutu = x.MenuBoyutu, SiparisAdeti = x.SiparisAdeti, ToplamTutar = x.ToplamTutar}
-				EkstraMalzemeSiparisler = x.EkstraMalzemeSiparisler,
-				MenuSiparisler = x.MenuSiparisler,
-			},
-			x => x.Id == id,
-			include: x => x.Include(x => x.EkstraMalzemeSiparisler)
-										.Include(x => x.MenuSiparisler));
+            await _siparisRepository.Create(siparis);
 
 
-			// Silmek istediklerimizi id den yakalayıp ef core ın tanıması için
-			Siparis entity = await _siparisRepository.GetDefault(x => x.Id == id);
+            List<MenuSiparis> menuSiparisler = new List<MenuSiparis>();
+
+            foreach (var item in model.Menuler)
+            {
+                if (item.Adet != 0)
+                {
+                    MenuSiparis ms = new MenuSiparis
+                    {
+                        MenuId = item.Id,
+                        SiparisId = siparis.Id,
+                        Adet = item.Adet,
+                        DataStatus = DataStatus.Inserted,
+                        CreatedDate = DateTime.Now
+                    };
+                    await _msRepository.Create(ms);
+
+                    menuSiparisler.Add(ms);
+                }
+            }
+
+            siparis.MenuSiparisler = menuSiparisler;
+
+            List<EkstraMalzemeSiparis> ekstraMalzemeSiparisler = new List<EkstraMalzemeSiparis>();
+            foreach (var item in model.EkstraMalzemeler)
+            {
+                if (item.Adet != 0)
+                {
+
+                    EkstraMalzemeSiparis em = new EkstraMalzemeSiparis
+                    {
+                        EkstraMalzemeId = item.Id,
+                        SiparisId = siparis.Id,
+                        Adet = item.Adet,
+                        DataStatus = DataStatus.Inserted,
+                        CreatedDate = DateTime.Now
+                    };
+
+                    await _esRepository.Create(em);
+
+                    ekstraMalzemeSiparisler.Add(em);
+
+                }
+            }
+
+            siparis.EkstraMalzemeSiparisler = ekstraMalzemeSiparisler;
+
+            await _siparisRepository.Update(siparis);
+        }
+
+        public async Task<CreateSiparisDTO> CreateSiparis()
+        {
+            CreateSiparisDTO createSiparis = new CreateSiparisDTO
+            {
+                EkstraMalzemeler = await _ekstraMalzemeRepository.GetFilteredList(x => new EkstraMalzemeVM
+                {
+                    Id = x.Id,
+                    Adi = x.Adi,
+                    Fiyati = x.Fiyati,
+                    ParaBirimi = x.ParaBirimi
+                },
+                   x => x.DataStatus != DataStatus.Deleted) as List<EkstraMalzemeVM>,
+
+                Menuler = await _menuRepository.GetFilteredList(x => new MenuVM
+                {
+                    Id = x.Id,
+                    MenuAdi = x.MenuAdi,
+                    MenuFiyati = x.MenuFiyati,
+                    ParaBirimi = x.ParaBirimi
+                }, x => x.DataStatus != DataStatus.Deleted) as List<MenuVM>
+            };
+
+            return createSiparis;
+        }
+
+        public async Task Delete(int id)
+        {
+            Siparis siparis = await _siparisRepository.GetFilteredFirstOrDefault(x => new Siparis
+            {
+                Id = x.Id,
+                MenuBoyutu = x.MenuBoyutu,
+                SiparisAdeti = x.SiparisAdeti,
+                //ToplamTutar=x.ToplamTutar
+                //}, x => new Siparis { Id = x.Id, MenuBoyutu = x.MenuBoyutu, SiparisAdeti = x.SiparisAdeti, ToplamTutar = x.ToplamTutar}
+                EkstraMalzemeSiparisler = x.EkstraMalzemeSiparisler,
+                MenuSiparisler = x.MenuSiparisler,
+            },
+            x => x.Id == id,
+            include: x => x.Include(x => x.EkstraMalzemeSiparisler)
+                                        .Include(x => x.MenuSiparisler));
 
 
-			if (id == null)
-			{
-				throw new ArgumentException("Id 0 Olamaz!");
-
-			}
-			else if (entity == null)
-			{
-				throw new ArgumentException("Böyle bir sipariş mevcut değil!");
-			}
-
-			foreach (var item in siparis.MenuSiparisler)
-			{
-				item.DataStatus = DataStatus.Deleted;
-				item.DeletedDate = DateTime.Now;
-			}
-
-			foreach (var item in siparis.EkstraMalzemeSiparisler)
-			{
-				item.DataStatus = DataStatus.Deleted;
-				item.DeletedDate = DateTime.Now;
-			}
-
-			entity.DataStatus = DataStatus.Deleted;
-			entity.DeletedDate = DateTime.Now;
+            // Silmek istediklerimizi id den yakalayıp ef core ın tanıması için
+            Siparis entity = await _siparisRepository.GetDefault(x => x.Id == id);
 
 
-			await _siparisRepository.Delete(entity);
+            if (id == null)
+            {
+                throw new ArgumentException("Id 0 Olamaz!");
 
-		}
+            }
+            else if (entity == null)
+            {
+                throw new ArgumentException("Böyle bir sipariş mevcut değil!");
+            }
 
-		public async Task<List<UpdateSiparisDTO>?> GetAll()
-		{
-			var menuler=await _menuRepository.GetFilteredList(x=>new MenuVM
-			{
-				Id=x.Id,
-				MenuAdi=x.MenuAdi,
-				MenuFiyati=x.MenuFiyati,
-				ParaBirimi=x.ParaBirimi
-			},x=>x.DataStatus!=DataStatus.Deleted) as List<MenuVM>;
+            foreach (var item in siparis.MenuSiparisler)
+            {
+                item.DataStatus = DataStatus.Deleted;
+                item.DeletedDate = DateTime.Now;
+            }
 
-			var ekstraMalzemeler=await _ekstraMalzemeRepository.GetFilteredList(x=>new EkstraMalzemeVM
-			{
-				Id=x.Id,
-				Adi=x.Adi,
-				Fiyati=x.Fiyati,
-				ParaBirimi=x.ParaBirimi
-			},x=>x.DataStatus!=DataStatus.Deleted) as List<EkstraMalzemeVM>;
+            foreach (var item in siparis.EkstraMalzemeSiparisler)
+            {
+                item.DataStatus = DataStatus.Deleted;
+                item.DeletedDate = DateTime.Now;
+            }
 
-			
-			var siparisler = await _siparisRepository.GetFilteredList(x => new UpdateSiparisDTO
-			{
-				Id = x.Id,
-				MenuBoyutu = x.MenuBoyutu,
-				SiparisAdeti = x.SiparisAdeti,
-				ToplamTutar = x.ToplamTutar,
-				EkstraMalzemeSiparis = x.EkstraMalzemeSiparisler.Select(x => new EkstraMalzemeSiparisDTO
-				{
-					EkstraMalzemeId = x.EkstraMalzemeId,
-					EkstraMalzemeAdeti = x.Adet,
-					EkstraMazlemeAdi = x.EkstraMalzeme.Adi
-				}).ToList(),
-				MenuSiparis = x.MenuSiparisler.Select(x => new MenuSiparisDTO
-				{
-					MenuId = x.MenuId,
-					MenuAdeti = x.Adet,
-					MenuAdi = x.Menu.MenuAdi
-				}).ToList(),
-				
-			},
-			x => x.DataStatus != DataStatus.Deleted,
-			include: x => x.Include(x => x.EkstraMalzemeSiparisler).
-										ThenInclude(x => x.EkstraMalzeme)
-			.Include(x => x.MenuSiparisler)
-			.ThenInclude(x => x.Menu));
+            entity.DataStatus = DataStatus.Deleted;
+            entity.DeletedDate = DateTime.Now;
 
 
-			
+            await _siparisRepository.Delete(entity);
 
-			return siparisler.ToList();
-		}
+        }
 
+        public async Task<List<UpdateSiparisDTO>?> GetAll()
+        {
+            //var menuler = await _menuRepository.GetFilteredList(x => new MenuVM
+            //{
+            //    Id = x.Id,
+            //    MenuAdi = x.MenuAdi,
+            //    MenuFiyati = x.MenuFiyati,
+            //    ParaBirimi = x.ParaBirimi
+            //}, x => x.DataStatus != DataStatus.Deleted) as List<MenuVM>;
 
-		//Todo : Gözden geçirilecek
-		public async Task<List<UpdateSiparisDTO>?> Search(string searchText)
-		{
-			return await _siparisRepository.GetFilteredList(x => new UpdateSiparisDTO
-			{
-
-
-				MenuBoyutu = x.MenuBoyutu,
-				SiparisAdeti = x.SiparisAdeti,
-				ToplamTutar = x.ToplamTutar
-			}, x => x.DataStatus != DataStatus.Deleted && x.Id == Convert.ToInt32(searchText)) as List<UpdateSiparisDTO>;
-		}
-
-		public async Task<UpdateSiparisDTO> GetById(int id)
-		{
-			return await _siparisRepository.GetFilteredFirstOrDefault(x => new UpdateSiparisDTO
-			{
+            //var ekstraMalzemeler = await _ekstraMalzemeRepository.GetFilteredList(x => new EkstraMalzemeVM
+            //{
+            //    Id = x.Id,
+            //    Adi = x.Adi,
+            //    Fiyati = x.Fiyati,
+            //    ParaBirimi = x.ParaBirimi
+            //}, x => x.DataStatus != DataStatus.Deleted) as List<EkstraMalzemeVM>;
 
 
-				MenuBoyutu = x.MenuBoyutu,
-				SiparisAdeti = x.SiparisAdeti,
-				ToplamTutar = x.ToplamTutar
-			}, x => x.DataStatus != DataStatus.Deleted && x.Id == id);
-		}
-
-		public async Task Update(UpdateSiparisDTO model)
-		{
-			Siparis entity = new Siparis();
-
-			entity = await _siparisRepository.GetDefault(g => g.Id == model.Id);
-
-
-			Siparis siparis = await _siparisRepository.GetFilteredFirstOrDefault(x => new Siparis
-			{
-				Id = x.Id,
-				MenuBoyutu = x.MenuBoyutu,
-				SiparisAdeti = x.SiparisAdeti,
-				//ToplamTutar=x.ToplamTutar
-				//}, x => new Siparis { Id = x.Id, MenuBoyutu = x.MenuBoyutu, SiparisAdeti = x.SiparisAdeti, ToplamTutar = x.ToplamTutar}
-				EkstraMalzemeSiparisler = x.EkstraMalzemeSiparisler,
-				MenuSiparisler = x.MenuSiparisler,
-			},
-			x => x.Id == entity.Id,
-			include: x => x.Include(x => x.EkstraMalzemeSiparisler)
-										.Include(x => x.MenuSiparisler));
+            var siparisler = await _siparisRepository.GetFilteredList(x => new UpdateSiparisDTO
+            {
+                Id = x.Id,
+                MenuBoyutu = x.MenuBoyutu,
+                SiparisAdeti = x.SiparisAdeti,
+                ToplamTutar = x.ToplamTutar,
+                EkstraMalzemeSiparis = x.EkstraMalzemeSiparisler.Select(x => new EkstraMalzemeSiparisDTO
+                {
+                    EkstraMalzemeId = x.EkstraMalzemeId,
+                    EkstraMalzemeAdeti = x.Adet,
+                    EkstraMazlemeAdi = x.EkstraMalzeme.Adi
+                }).ToList(),
+                MenuSiparis = x.MenuSiparisler.Select(x => new MenuSiparisDTO
+                {
+                    MenuId = x.MenuId,
+                    MenuAdeti = x.Adet,
+                    MenuAdi = x.Menu.MenuAdi
+                }).ToList()
+            },
+            x => x.DataStatus != DataStatus.Deleted,
+            include: x => x.Include(x => x.EkstraMalzemeSiparisler).
+                                        ThenInclude(x => x.EkstraMalzeme)
+            .Include(x => x.MenuSiparisler)
+            .ThenInclude(x => x.Menu)) as List<UpdateSiparisDTO>;
 
 
 
-			if (entity == null)
-			{
-				throw new Exception("Böyle bir sipariş mevcut değil!");
-			}
+            foreach (var siparis in siparisler)
+            {
+                List<MenuVM> m = new List<MenuVM>();
 
-			if (model.MenuSiparis != null)
-				entity.MenuSiparisler = model.MenuSiparis.Select(x => new MenuSiparis
-				{
-					MenuId = x.MenuId,
-					Adet = x.MenuAdeti,
-					DataStatus = DataStatus.Updated,
-					ModifiedDate = DateTime.Now,
-					SiparisId = siparis.Id
-				}).ToList();
-
-			if (model.EkstraMalzemeSiparis != null)
-				entity.EkstraMalzemeSiparisler = model.EkstraMalzemeSiparis.Select(x => new EkstraMalzemeSiparis
-				{
-					EkstraMalzemeId = x.EkstraMalzemeId,
-					Adet = x.EkstraMalzemeAdeti,
-					DataStatus = DataStatus.Updated,
-					ModifiedDate = DateTime.Now,
-					SiparisId = siparis.Id
-				}).ToList();
+                m = await _menuRepository.GetFilteredList(x => new MenuVM
+                {
+                    Id = x.Id,
+                    MenuAdi = x.MenuAdi,
+                    MenuFiyati = x.MenuFiyati,
+                    ParaBirimi = x.ParaBirimi
+                }, x => x.DataStatus != DataStatus.Deleted) as List<MenuVM>;
+                siparis.Menuler = m;
 
 
-			entity.MenuBoyutu = model.MenuBoyutu;
-			entity.SiparisAdeti = model.SiparisAdeti;
-			entity.ToplamTutar = model.ToplamTutar;
+                List<EkstraMalzemeVM> e = new List<EkstraMalzemeVM>();
+                e = await _ekstraMalzemeRepository.GetFilteredList(x => new EkstraMalzemeVM
+                {
+                    Id = x.Id,
+                    Adi = x.Adi,
+                    Fiyati = x.Fiyati,
+                    ParaBirimi = x.ParaBirimi
+                }, x => x.DataStatus != DataStatus.Deleted) as List<EkstraMalzemeVM>; ;
+
+                siparis.EkstraMalzemeler = e;
+            }
 
 
-			entity.DataStatus = DataStatus.Updated;
-			entity.ModifiedDate = DateTime.Now;
 
-			await _siparisRepository.Update(entity);
-		}
-	}
+
+
+            foreach (UpdateSiparisDTO siparis in siparisler)
+            {
+                foreach (var menu in siparis.Menuler)
+                {
+                    foreach (var ms in siparis.MenuSiparis)
+                    {
+                        if (menu.Id == ms.MenuId)
+                        {
+                            menu.Adet = ms.MenuAdeti;
+                        }
+                    }
+                }
+
+                foreach (var ekstra in siparis.EkstraMalzemeler)
+                {
+                    foreach (var es in siparis.EkstraMalzemeSiparis)
+                    {
+                        if (ekstra.Id == es.EkstraMalzemeId)
+                        {
+                            ekstra.Adet = es.EkstraMalzemeAdeti;
+                        }
+                    }
+                }
+            }
+
+
+
+            return siparisler;
+        }
+
+
+        //Todo : Gözden geçirilecek
+        public async Task<List<UpdateSiparisDTO>?> Search(string searchText)
+        {
+            return await _siparisRepository.GetFilteredList(x => new UpdateSiparisDTO
+            {
+
+
+                MenuBoyutu = x.MenuBoyutu,
+                SiparisAdeti = x.SiparisAdeti,
+                ToplamTutar = x.ToplamTutar
+            }, x => x.DataStatus != DataStatus.Deleted && x.Id == Convert.ToInt32(searchText)) as List<UpdateSiparisDTO>;
+        }
+
+        public async Task<UpdateSiparisDTO> GetById(int id)
+        {
+            return await _siparisRepository.GetFilteredFirstOrDefault(x => new UpdateSiparisDTO
+            {
+
+
+                MenuBoyutu = x.MenuBoyutu,
+                SiparisAdeti = x.SiparisAdeti,
+                ToplamTutar = x.ToplamTutar
+            }, x => x.DataStatus != DataStatus.Deleted && x.Id == id);
+        }
+
+        public async Task Update(UpdateSiparisDTO model)
+        {
+            Siparis entity = new Siparis();
+
+            entity = await _siparisRepository.GetDefault(g => g.Id == model.Id);
+
+
+            Siparis siparis = await _siparisRepository.GetFilteredFirstOrDefault(x => new Siparis
+            {
+                Id = x.Id,
+                MenuBoyutu = x.MenuBoyutu,
+                SiparisAdeti = x.SiparisAdeti,
+                //ToplamTutar=x.ToplamTutar
+                //}, x => new Siparis { Id = x.Id, MenuBoyutu = x.MenuBoyutu, SiparisAdeti = x.SiparisAdeti, ToplamTutar = x.ToplamTutar}
+                EkstraMalzemeSiparisler = x.EkstraMalzemeSiparisler,
+                MenuSiparisler = x.MenuSiparisler,
+            },
+            x => x.Id == entity.Id,
+            include: x => x.Include(x => x.EkstraMalzemeSiparisler)
+                                        .Include(x => x.MenuSiparisler));
+
+
+
+            if (entity == null)
+            {
+                throw new Exception("Böyle bir sipariş mevcut değil!");
+            }
+
+            List<MenuSiparis> menuSiparisler = new List<MenuSiparis>();
+
+            foreach (var item in model.Menuler)
+            {
+                if (item.Adet != 0)
+                {
+                    MenuSiparis ms = new MenuSiparis
+                    {
+                        MenuId = item.Id,
+                        SiparisId = siparis.Id,
+                        Adet = item.Adet
+                    };
+
+                    if (siparis.MenuSiparisler.Any(x => x.MenuId == item.Id))
+                    {
+                        ms.DataStatus = DataStatus.Updated;
+                        ms.ModifiedDate = DateTime.Now;
+
+                        //await _msRepository.Update(ms);
+                    }
+                    else
+                    {
+                        ms.DataStatus = DataStatus.Inserted;
+                        ms.CreatedDate = DateTime.Now;
+
+                        await _msRepository.Create(ms);
+                    }
+                    menuSiparisler.Add(ms);
+                }
+            }
+
+
+            List<EkstraMalzemeSiparis> ekstraSiparisler = new List<EkstraMalzemeSiparis>();
+
+            foreach (var item in model.EkstraMalzemeler)
+            {
+                if (item.Adet != 0)
+                {
+                    EkstraMalzemeSiparis em = new EkstraMalzemeSiparis
+                    {
+                        EkstraMalzemeId = item.Id,
+                        SiparisId = siparis.Id,
+                        Adet = item.Adet,
+                    };
+
+                    if (siparis.EkstraMalzemeSiparisler.Any(x => x.EkstraMalzemeId == item.Id))
+                    {
+                        em.DataStatus = DataStatus.Updated;
+                        em.ModifiedDate = DateTime.Now;
+
+                        //await _esRepository.Update(em);
+                    }
+                    else
+                    {
+                        em.DataStatus = DataStatus.Inserted;
+                        em.CreatedDate = DateTime.Now;
+
+                        await _esRepository.Create(em);
+                    }
+                    ekstraSiparisler.Add(em);
+                }
+            }
+
+
+            entity.MenuBoyutu = model.MenuBoyutu;
+            entity.SiparisAdeti = model.SiparisAdeti;
+            entity.ToplamTutar = model.ToplamTutar;
+
+            entity.MenuSiparisler = menuSiparisler;
+            entity.EkstraMalzemeSiparisler = ekstraSiparisler;
+
+            entity.DataStatus = DataStatus.Updated;
+            entity.ModifiedDate = DateTime.Now;
+
+            await _siparisRepository.Update(entity);
+        }
+    }
 }
