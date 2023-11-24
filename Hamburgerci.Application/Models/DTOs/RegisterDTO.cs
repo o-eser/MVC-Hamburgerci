@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Hamburgerci.Entities.Enum;
+﻿using Hamburgerci.Entities.Enum;
 
 namespace Hamburgerci.Application.Models.DTOs
 {

@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Identity;
 
 namespace Hamburgerci.Application.Services.Abstract
 {
-    public interface IKullaniciService
+    public interface IAppUserService
 	{
 		Task<IdentityResult> Register(RegisterDTO model);
 		Task<SignInResult> Login(LoginDTO model);

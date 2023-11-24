@@ -9,9 +9,9 @@ using Hamburgerci.Repositories.Context;
 
 namespace Hamburgerci.Repositories.Concrete
 {
-	public class KullaniciRepository : BaseRepository<Kullanici>, IKullaniciRepository
+	public class AppUserRepository : BaseRepository<AppUser>, IAppUserRepository
 	{
-		public KullaniciRepository(AppDbContext context) : base(context)
+		public AppUserRepository(AppDbContext context) : base(context)
 		{
 		}
 	}
