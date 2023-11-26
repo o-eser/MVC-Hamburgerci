@@ -4,9 +4,11 @@ using Hamburgerci.Application.Services.Concrete;
 using Microsoft.AspNetCore.Mvc;
 using X.PagedList;
 using Hamburgerci.Application.Models.DTOs;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Hamburgerci.UI.Controllers
 {
+    [Authorize(Roles = "Admin")]
     public class EkstraMalzemeController : Controller
     {
         private readonly IEkstraMalzemeService _ekstraMalzemeService;
