@@ -2,11 +2,13 @@
 using Hamburgerci.Application.Models.VMs;
 using Hamburgerci.Application.Services.Abstract;
 using Hamburgerci.Application.Services.Concrete;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using X.PagedList;
 
 namespace Hamburgerci.UI.Controllers
 {
+	[Authorize]
 	public class SiparisController : Controller
 	{
 		ISiparisService _siparisService;

@@ -1,12 +1,14 @@
 ﻿using Hamburgerci.Application.Models.DTOs;
 using Hamburgerci.Application.Models.VMs;
 using Hamburgerci.Application.Services.Abstract;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using X.PagedList;
 
 namespace Hamburgerci.UI.Controllers
 {
-	public class MenuController : Controller
+    [Authorize(Roles = "Admin")]
+    public class MenuController : Controller
 	{
 		private readonly IMenuService _menuService;
 

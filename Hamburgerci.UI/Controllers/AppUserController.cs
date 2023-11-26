@@ -1,7 +1,9 @@
 ﻿using Hamburgerci.Application.Models.DTOs;
 using Hamburgerci.Application.Services.Abstract;
 using Hamburgerci.Entities.Concrete;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Hamburgerci.UI.Controllers
@@ -12,13 +14,15 @@ namespace Hamburgerci.UI.Controllers
         private readonly UserManager<AppUser> _userManager;
         private readonly SignInManager<AppUser> _signInManager;
         private readonly IPasswordHasher<AppUser> _passwordHasher;
+        private readonly IEmailSender _emailSender;
 
-        public AppUserController(IAppUserService kullaniciService, UserManager<AppUser> userManager, SignInManager<AppUser> signInManager, IPasswordHasher<AppUser> passwordHasher)
+        public AppUserController(IAppUserService kullaniciService, UserManager<AppUser> userManager, SignInManager<AppUser> signInManager, IPasswordHasher<AppUser> passwordHasher,IEmailSender emailSender)
         {
             _kullaniciService = kullaniciService;
             _userManager = userManager;
             _signInManager = signInManager;
             _passwordHasher = passwordHasher;
+            _emailSender = emailSender;
         }
 
         public IActionResult Register()
@@ -39,9 +43,18 @@ namespace Hamburgerci.UI.Controllers
                 };
                 try
                 {
+
                     IdentityResult identityResult = await _userManager.CreateAsync(appUser, model.Password);
                     if (identityResult.Succeeded)
+                    {
+                        var token = await _userManager.GenerateEmailConfirmationTokenAsync(appUser);
+                        var confirmationLink = Url.Action("ConfirmEmail", "AppUser", new { userId = appUser.Id, token = token }, Request.Scheme);
+
+                        // E-posta gönderme işlemi
+                        await _emailSender.SendEmailAsync(appUser.Email, "E-posta Doğrulama", $"Lütfen hesabınızı doğrulamak için linke <a href='{confirmationLink}'>tıklayın</a>.");
+
                         return RedirectToAction("Login");
+                    }
                     else
                     {
                         foreach (IdentityError error in identityResult.Errors)
@@ -55,9 +68,9 @@ namespace Hamburgerci.UI.Controllers
 
                     throw;
                 }
-                
 
-                
+
+
             }
             return View(model);
         }
@@ -83,27 +96,57 @@ namespace Hamburgerci.UI.Controllers
 
                     if (result.Succeeded)
                     {
-						//// Kullanıcının rollerini yükle
-						//var roles = await _userManager.GetRolesAsync(appUser);
-
-						//// Kullanıcının rollerini cookie'ye ekle
-						//foreach (var role in roles)
-						//{
-						//	// Cookie'ye rol ekleyerek, [Authorize(Roles = "Admin")] kontrolüne izin verilmiş olacak
-						//	HttpContext.Response.Cookies.Append("UserRole", role, new CookieOptions { HttpOnly = false });
-						//}
-
-						return RedirectToAction("Index","Home");
+                        return RedirectToAction("Index", "Siparis");
                     }
-                ModelState.AddModelError("", "Invalid Email or Password");
+                    ModelState.AddModelError("", "Invalid Email or Password");
                 }
             }
             return View(model);
         }
 
-        public async Task Logout()
+        public async Task<IActionResult> Logout()
         {
             await _signInManager.SignOutAsync();
+
+            return RedirectToAction("Login","appuser");
+        }
+
+        public IActionResult ErisimEngellendi()
+        {
+            return View();
+        }
+
+        [HttpGet]
+        [AllowAnonymous]
+        public async Task<IActionResult> ConfirmEmail(string userId, string token)
+        {
+            if (userId == null || token == null)
+            {
+                return RedirectToAction("Error", "HoAppUserme");
+            }
+
+            var user = await _userManager.FindByIdAsync(userId);
+            if (user == null)
+            {
+                return RedirectToAction("Error", "AppUser");
+            }
+
+            var result = await _userManager.ConfirmEmailAsync(user, token);
+            if (result.Succeeded)
+            {
+                // E-posta doğrulama başarılı
+                return View("ConfirmEmail");
+            }
+            else
+            {
+                // E-posta doğrulama başarısız
+                return RedirectToAction("Error", "AppUser");
+            }
+        }
+
+        public IActionResult Error()
+        {
+            return View();
         }
 
     }

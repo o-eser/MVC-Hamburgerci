@@ -15,21 +15,25 @@
     <header>
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-light border-bottom box-shadow mb-3 sticky-top">
             <div class="container-fluid">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index"><img src="~/assets/burger.png" alt="" width="45" height="39" class="d-inline-block align-text-top"></a>
+                <a class="navbar-brand" asp-area="" asp-controller="siparis" asp-action="Index"><img src="~/assets/burger.png" alt="" width="45" height="39" class="d-inline-block align-text-top"></a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
                     <ul class="navbar-nav flex-grow-1">
+                        @{if (User.IsInRole("Admin"))
+                        {
+                                <li class="nav-item ">
+                                    <a class="nav-link text-dark" asp-controller="Menu" asp-action="Index" role="button">Yönetim Paneli</a>
+                                </li>
+                        }}
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                            <a class="nav-link text-dark" asp-area="" asp-controller="siparis" asp-action="Index">Ana Sayfa</a>
                         </li>
+                        
                         <li class="nav-item ">
-                            <a class="nav-link text-dark" asp-controller="Menu" asp-action="Index" role="button">Yönetim Paneli</a>
-                        </li>
-                        <li class="nav-item ">
-                            <a class="nav-link text-dark" asp-controller="AppUser" asp-action="Login" role="button">Giriş Yap</a>
+                            <a class="nav-link text-dark" asp-controller="AppUser" asp-action="Logout" role="button">Çıkış Yap</a>
                         </li>
 
                     </ul>

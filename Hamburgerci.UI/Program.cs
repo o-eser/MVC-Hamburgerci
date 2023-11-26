@@ -7,6 +7,7 @@ using Hamburgerci.Repositories.Abstract;
 using Hamburgerci.Repositories.Concrete;
 using Hamburgerci.Repositories.Context;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -27,10 +28,11 @@ builder.Services.AddScoped<IMenuSiparisRepository, MenuSiparisRepository>();
 builder.Services.AddScoped<IEkstraMalzemeSiparisRepository, EkstraMalzemeSiparisRepository>();
 builder.Services.AddScoped<IAppUserRepository, AppUserRepository>();
 builder.Services.AddScoped<IAppUserService, AppUserService>();
+builder.Services.AddScoped<IEmailSender, EmailSender>();
 
 builder.Services.AddIdentity<AppUser, IdentityRole<int>>(opt =>
 {
-    opt.SignIn.RequireConfirmedEmail = false;
+    opt.SignIn.RequireConfirmedEmail = true;
     opt.SignIn.RequireConfirmedPhoneNumber = false;
     opt.SignIn.RequireConfirmedAccount = false;
     opt.User.RequireUniqueEmail = false;
@@ -41,14 +43,13 @@ builder.Services.AddIdentity<AppUser, IdentityRole<int>>(opt =>
 }
 ).AddEntityFrameworkStores<AppDbContext>().AddDefaultTokenProviders();
 
-//builder.Services.AddDistributedMemoryCache();
+builder.Services.ConfigureApplicationCookie(opt =>
+{
+    opt.LoginPath = "/AppUser/Login";
+    opt.AccessDeniedPath = "/AppUser/ErisimEngellendi";
+});
 
-//builder.Services.AddSession(options =>
-//{
-//    options.IdleTimeout = TimeSpan.FromMinutes(5);
-//    options.Cookie.HttpOnly = true;
-//    options.Cookie.IsEssential = true;
-//});
+
 
 
 
@@ -76,6 +77,6 @@ app.UseAuthorization();
 
 app.MapControllerRoute(
     name: "default",
-    pattern: "{controller=Home}/{action=Index}/{id?}");
+    pattern: "{controller=Siparis}/{action=Index}/{id?}");
 
 app.Run();
