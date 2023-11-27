@@ -12,6 +12,5 @@ namespace Hamburgerci.Application.Models.DTOs
         public int Id { get; set; }
         public string Adi { get; set; }
         public double Fiyati { get; set; }
-        public ParaBirimi ParaBirimi { get; set; }
     }
 }

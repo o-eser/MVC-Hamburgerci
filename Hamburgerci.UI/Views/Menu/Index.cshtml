@@ -52,7 +52,6 @@
 									<tr>
 										<th>Menü Adı</th>
 										<th class="text-center">Menü Fiyatı</th>
-										<th class="text-center">Para Birimi</th>
 										<th></th>
 										<th></th>
 									</tr>
@@ -63,9 +62,8 @@
 										<tr>
 											<td>@menu.MenuAdi</td>
 											<td class="text-center">@menu.MenuFiyati</td>
-											<td class="text-center">@menu.ParaBirimi</td>
 											<td>@await Component.InvokeAsync("MenuDuzenle",menu)</td>
-											<td><a class="btn btn-danger btn-icon-split" role="button" onclick="confirmDelete('@menu.Id')"><span class="text-white-50 icon"><i class="fas fa-trash me-2"></i></span><span class="text-white text">Delete</span></a></td>
+											<td><a class="btn btn-danger btn-icon-split" role="button" onclick="confirmDelete('@menu.Id')"><span class="text-white-50 icon"><i class="fas fa-trash me-2"></i></span><span class="text-white text">Sil</span></a></td>
 										</tr>
 									}
 								</tbody>
@@ -73,7 +71,6 @@
 									<tr>
 										<th>Menü Adı</th>
 										<th class="text-center">Menü Fiyatı</th>
-										<th class="text-center">Para Birimi</th>
 										<th></th>
 									</tr>
 								</tfoot>
@@ -107,7 +104,6 @@
 							</div>
 						</div>
 
-						<a class="btn btn-success" asp-action="MenuEkle">New Product</a>
 
 					</div>
 				</div>

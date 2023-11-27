@@ -30,22 +30,12 @@
 									</label>
 								</div>
 							</div>
-							<div class="col-md-6">
-								<form asp-action="Index" method="get">
-									<div class="text-md-end">
-										<label for="searchText" class="form-label">
-											<input name="searchText" class="form-control form-control-sm" type="search" placeholder="Search" value="@(String.IsNullOrEmpty(Context.Request.Query["searchText"]) ?String.Empty: Context.Request.Query["searchText"])" />
-										</label>
-										<button class="btn btn-light" type="submit">Search</button>
-									</div>
-								</form>
-							</div>
 						</div>
 						<div class="table-responsive table mt-2">
 							<table class="table my-0">
 								<thead>
 									<tr>
-										<th>Sipariş Id</th>
+										<th>Sipariş Adeti</th>
 										<th class="text-center">Menü Boyutu</th>
 										<th class="text-center">Toplam Tutar</th>
 										<th>Menü</th>
@@ -58,7 +48,7 @@
 									@foreach (var siparis in Model.Siparisler)
 									{
 										<tr>
-											<td>@siparis.Id</td>
+											<td>@siparis.SiparisAdeti</td>
 											<td class="text-center">@siparis.MenuBoyutu</td>
 											<td class="text-center">@siparis.ToplamTutar</td>
 											<td>
@@ -74,15 +64,18 @@
 												}
 											</td>
 											<td>@await Component.InvokeAsync("SiparisDuzenle",siparis)</td>
-											<td><a class="btn btn-danger btn-icon-split" role="button" onclick="confirmDelete('@siparis.Id')"><span class="text-white-50 icon"><i class="fas fa-trash me-2"></i></span><span class="text-white text">Delete</span></a></td>
+											<td><a class="btn btn-danger btn-icon-split" role="button" onclick="confirmDelete('@siparis.Id')"><span class="text-white-50 icon"><i class="fas fa-trash me-2"></i></span><span class="text-white text">Sil</span></a></td>
 										</tr>
 									}
 								</tbody>
 								<tfoot>
 									<tr>
-										<th>Ekstra Malzeme Adı</th>
-										<th class="text-center">Ekstra Malzeme Fiyatı</th>
-										<th class="text-center">Para Birimi</th>
+										<th>Sipariş Adeti</th>
+										<th class="text-center">Menü Boyutu</th>
+										<th class="text-center">Toplam Tutar</th>
+										<th>Menü</th>
+										<th>Ekstra Malzemeler</th>
+										<th></th>
 										<th></th>
 									</tr>
 								</tfoot>
@@ -96,18 +89,18 @@
 								<nav class="d-lg-flex justify-content-lg-end dataTables_paginate paging_simple_numbers">
 									<ul class="pagination">
 										<li class="page-item @(Model.Siparisler.HasPreviousPage ? "" : "disabled")">
-											<a class="page-link" aria-label="Previous" href="@(Model.Siparisler.HasPreviousPage ? Url.Action("Index", new { page = Model.Siparisler.PageNumber - 1 , pageSize=Model.Siparisler.PageSize, searchText=Context.Request.Query["searchText"] }) : "#")">
+											<a class="page-link" aria-label="Previous" href="@(Model.Siparisler.HasPreviousPage ? Url.Action("Index", new { page = Model.Siparisler.PageNumber - 1 , pageSize=Model.Siparisler.PageSize}) : "#")">
 												<span aria-hidden="true">«</span>
 											</a>
 										</li>
 										@for (int i = 1; i <= Model.Siparisler.PageCount; i++)
 										{
 											<li class="page-item @(i == Model.Siparisler.PageNumber ? "active" : "")">
-												<a class="page-link" href="@Url.Action("Index", new { page = i, pageSize=Model.Siparisler.PageSize,searchText=Context.Request.Query["searchText"] })">@i</a>
+												<a class="page-link" href="@Url.Action("Index", new { page = i, pageSize=Model.Siparisler.PageSize})">@i</a>
 											</li>
 										}
 										<li class="page-item @(Model.Siparisler.HasNextPage ? "" : "disabled")">
-											<a class="page-link" aria-label="Next" href="@(Model.Siparisler.HasNextPage ? Url.Action("Index", new { page = Model.Siparisler.PageNumber + 1, pageSize=Model.Siparisler.PageSize,searchText=Context.Request.Query["searchText"] }) : "#")">
+											<a class="page-link" aria-label="Next" href="@(Model.Siparisler.HasNextPage ? Url.Action("Index", new { page = Model.Siparisler.PageNumber + 1, pageSize=Model.Siparisler.PageSize}) : "#")">
 												<span aria-hidden="true">»</span>
 											</a>
 										</li>
@@ -116,7 +109,6 @@
 							</div>
 						</div>
 
-						<a class="btn btn-success" asp-action="EkstraMalzemeEkle">Yeni Malzeme</a>
 
 					</div>
 				</div>
@@ -131,13 +123,10 @@
 
 	dropdown.addEventListener("change", function () {
 		var selectedPageSize = this.value;
-		var searchText = '@Context.Request.Query["searchText"]';
 
-		if (searchText) {
-			var url = "/Siparis/Index?pageSize=" + selectedPageSize + "&searchText=" + searchText;
-		} else {
+		
 			var url = "/Siparis/Index?pageSize=" + selectedPageSize;
-		}
+		
 
 		window.location.href = url;
 	});
@@ -150,3 +139,4 @@
 		}
 	}
 </script>
+

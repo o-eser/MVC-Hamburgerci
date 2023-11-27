@@ -80,16 +80,22 @@
                                 <label asp-for="MenuBoyutu">Menu Boyutu:</label>
                                 <select class="form-control" asp-for="MenuBoyutu" asp-items="@Html.GetEnumSelectList<MenuBoyutu>()"></select>
                             </div>
+                            <div class="form-group">
+                                <label asp-for="SiparisAdeti">Sparis Adeti</label>
+                                <input type="number" class="form-control col-4" asp-for="SiparisAdeti" />
+                            </div>
+                            <span id="toplamTutarUpdate" class="text-end">Toplam Tutar: 0.00</span>
                         </div>
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Kapat</button>
                     <div class="form-group">
-                        <input type="submit" value="Save" class="btn btn-primary" />
+                        <input type="submit" value="Kaydet" class="btn btn-primary" />
                     </div>
                 </div>
             </form>
         </div>
     </div>
 </div>
+

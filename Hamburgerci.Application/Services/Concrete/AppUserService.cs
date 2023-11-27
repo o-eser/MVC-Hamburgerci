@@ -1,7 +1,9 @@
-﻿using Hamburgerci.Application.Models.DTOs;
+﻿using System.Security.Claims;
+using Hamburgerci.Application.Models.DTOs;
 using Hamburgerci.Application.Services.Abstract;
 using Hamburgerci.Entities.Concrete;
 using Hamburgerci.Repositories.Abstract;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 
 namespace Hamburgerci.Application.Services.Concrete
@@ -11,12 +13,15 @@ namespace Hamburgerci.Application.Services.Concrete
 		private readonly UserManager<AppUser> _userManager;
 		private readonly SignInManager<AppUser> _signInManager;
 		private readonly IAppUserRepository _kullaniciRepository;
+		private readonly IHttpContextAccessor _httpContextAccessor;
 
-		public AppUserService(UserManager<AppUser> userManager, SignInManager<AppUser> signInManager, IAppUserRepository kullaniciRepository)
+
+		public AppUserService(UserManager<AppUser> userManager, SignInManager<AppUser> signInManager, IAppUserRepository kullaniciRepository, IHttpContextAccessor httpContextAccessor)
 		{
 			_userManager = userManager;
 			_signInManager = signInManager;
 			_kullaniciRepository = kullaniciRepository;
+			_httpContextAccessor = httpContextAccessor;
 		}
 		public async Task<UpdateProfileDTO> GetByUserName(string userName)
 		{
@@ -31,6 +36,12 @@ namespace Hamburgerci.Application.Services.Concrete
 				   x => x.UserName == userName);
 
 			return result;
+		}
+
+		public async Task<int> GetUserId()
+		{
+			AppUser currentUser = await _userManager.GetUserAsync(_httpContextAccessor.HttpContext.User);
+			return currentUser.Id;
 		}
 
 		public async Task<SignInResult> Login(LoginDTO model)
@@ -76,5 +87,7 @@ namespace Hamburgerci.Application.Services.Concrete
 					await _userManager.SetEmailAsync(user, model.Email);
 			}
 		}
+
+		
 	}
 }

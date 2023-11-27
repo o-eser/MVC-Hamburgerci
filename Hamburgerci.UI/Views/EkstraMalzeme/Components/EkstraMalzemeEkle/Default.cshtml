@@ -15,11 +15,7 @@
 				<label asp-for="EkstraMalzeme.Fiyati">Ekstra Malzeme Fiyatı:</label>
 				<input type="text" class="form-control" asp-for="EkstraMalzeme.Fiyati" />
 			</div>
-			<div>
-				<label asp-for="EkstraMalzeme.ParaBirimi">Para Birimi:</label>
-				<select class="form-control" asp-for="EkstraMalzeme.ParaBirimi" asp-items="@Html.GetEnumSelectList<ParaBirimi>()"></select>
-			</div>
-			<button type="submit" class="btn-primary btn-block">Create</button>
+			<button type="submit" class="btn-primary btn-block">Ekle</button>
 		</form>
 	</div>
 	<div class="card-footer">

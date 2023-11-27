@@ -20,8 +20,7 @@ namespace Hamburgerci.Application.Services.Concrete
 			EkstraMalzeme ekstraMalzeme = new EkstraMalzeme
 			{
 				Adi = model.Adi,
-				Fiyati = model.Fiyati,
-				ParaBirimi = model.ParaBirimi
+				Fiyati = model.Fiyati
 			};
 
 
@@ -54,7 +53,6 @@ namespace Hamburgerci.Application.Services.Concrete
 			{
 				Adi = x.Adi,
                 Fiyati = x.Fiyati,
-				ParaBirimi = x.ParaBirimi,
 				Id = x.Id,
 			}, g => g.Id == id && g.DataStatus != DataStatus.Deleted);
 		}
@@ -71,7 +69,6 @@ namespace Hamburgerci.Application.Services.Concrete
 
 			ekstraMalzeme.Adi = model.Adi;
 			ekstraMalzeme.Fiyati = model.Fiyati;
-			ekstraMalzeme.ParaBirimi = model.ParaBirimi;
 			ekstraMalzeme.ModifiedDate = DateTime.Now;
 			ekstraMalzeme.DataStatus = DataStatus.Updated;
 
@@ -85,7 +82,6 @@ namespace Hamburgerci.Application.Services.Concrete
 			{
 				Adi = x.Adi,
                 Fiyati = x.Fiyati,
-				ParaBirimi = x.ParaBirimi,
 				Id = x.Id,
 			}, g => g.DataStatus != DataStatus.Deleted) as List<EkstraMalzemeDTO>;
 		}
@@ -96,7 +92,6 @@ namespace Hamburgerci.Application.Services.Concrete
             {
 				Adi = x.Adi,
 				Fiyati=x.Fiyati,
-                ParaBirimi = x.ParaBirimi,
                 Id = x.Id 
                 
             }, g => g.Adi.Contains(searchText) && g.DataStatus != DataStatus.Deleted) as List<EkstraMalzemeDTO>;

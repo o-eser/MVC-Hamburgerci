@@ -14,8 +14,8 @@ namespace Hamburgerci.Entities.Concrete
         public ICollection<MenuSiparis>? MenuSiparisler { get; set; }
 
         public ICollection<EkstraMalzemeSiparis>? EkstraMalzemeSiparisler { get; set; }
-        public int? KullaniciId { get; set; }
-        public AppUser? Kullanici { get; set; }
+        public int KullaniciId { get; set; }
+        public AppUser Kullanici { get; set; }
 
     }
 }

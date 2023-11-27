@@ -7,8 +7,8 @@ using X.PagedList;
 
 namespace Hamburgerci.UI.Controllers
 {
-    [Authorize(Roles = "Admin")]
-    public class MenuController : Controller
+	[Authorize(Roles = "Admin")]
+	public class MenuController : Controller
 	{
 		private readonly IMenuService _menuService;
 

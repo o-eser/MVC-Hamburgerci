@@ -9,10 +9,10 @@
   <ItemGroup>
     <Folder Include="AutoMapper\" />
     <Folder Include="Extensions\" />
-    <Folder Include="IoC\" />
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="Autofac.Extensions.DependencyInjection" Version="8.0.0" />
     <PackageReference Include="Microsoft.AspNetCore.Identity" Version="2.2.0" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="6.0.25" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="6.0.25" />
@@ -22,6 +22,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Hamburgerci.Domain\Hamburgerci.Domain.csproj" />
+    <ProjectReference Include="..\Hamburgerci.Infrastructure\Hamburgerci.Infrastructure.csproj" />
   </ItemGroup>
 
 </Project>
