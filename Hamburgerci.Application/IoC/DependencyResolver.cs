@@ -17,21 +17,20 @@ namespace Hamburgerci.Application.IoC
 		protected override void Load(ContainerBuilder builder)
 		{
 			builder.RegisterType<AppUserService>().As<IAppUserService>().InstancePerLifetimeScope();
-			builder.RegisterType<AppUserRepository>().As<IAppUserRepository>().InstancePerLifetimeScope();
-
-			builder.RegisterType<EkstraMalzemeService>().As<IEkstraMalzemeService>().InstancePerLifetimeScope();
-			builder.RegisterType<EkstraMalzemeRepository>().As<IEkstraMalzemeRepository>().InstancePerLifetimeScope();
-
-			builder.RegisterType<MenuService>().As<IMenuService>().InstancePerLifetimeScope();
-			builder.RegisterType<MenuRepository>().As<IMenuRepository>().InstancePerLifetimeScope();
+			builder.RegisterType<AppUserRepository>().As<IAppUserRepository>().InstancePerDependency();
 
 			builder.RegisterType<SiparisService>().As<ISiparisService>().InstancePerLifetimeScope();
-			builder.RegisterType<SiparisRepository>().As<ISiparisRepository>().InstancePerLifetimeScope();
+			builder.RegisterType<SiparisRepository>().As<ISiparisRepository>().InstancePerDependency();
+
+			builder.RegisterType<EkstraMalzemeService>().As<IEkstraMalzemeService>().InstancePerLifetimeScope();
+			builder.RegisterType<EkstraMalzemeRepository>().As<IEkstraMalzemeRepository>().InstancePerDependency();
+
+			builder.RegisterType<MenuService>().As<IMenuService>().InstancePerLifetimeScope();
+			builder.RegisterType<MenuRepository>().As<IMenuRepository>().InstancePerDependency();
 
 
 
 			builder.RegisterType<EmailSender>().As<IEmailSender>();
-
 
 
 			base.Load(builder);

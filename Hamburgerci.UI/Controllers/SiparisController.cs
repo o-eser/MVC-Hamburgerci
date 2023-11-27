@@ -11,27 +11,20 @@ namespace Hamburgerci.UI.Controllers
 	[Authorize]
 	public class SiparisController : Controller
 	{
-		ISiparisService _siparisService;
+		private readonly ISiparisService _siparisService;
 
 		public SiparisController(ISiparisService siparisService)
 		{
-			this._siparisService = siparisService;
+			_siparisService = siparisService;
 		}
 
-		public async Task<IActionResult> Index(string searchText, int pageSize = 5, int page = 1)
+		public async Task<IActionResult> Index( int pageSize = 5, int page = 1)
 		{
 			SiparisListingVM vm = new SiparisListingVM();
 			var siparisler = await _siparisService.GetAll();
 			vm.Siparisler = siparisler.ToPagedList(pageNumber: page, pageSize: pageSize);
 
-			if (!String.IsNullOrEmpty(searchText))
-			{
-				siparisler = await _siparisService.Search(searchText);
-				vm.Siparisler = siparisler.ToPagedList(page, pageSize);
-			}
 			vm.CreateSiparis = await _siparisService.CreateSiparis();
-
-
 
 			return View(vm);
 		}
@@ -39,6 +32,11 @@ namespace Hamburgerci.UI.Controllers
 		[HttpPost]
 		public async Task<IActionResult> SiparisEkle(SiparisListingVM model)
 		{
+			if (!ModelState.IsValid)
+			{
+				ModelState.AddModelError("", "Lütfen gerekli alanları doldurunuz.");
+				return RedirectToAction("Index",model);
+			}
 			await _siparisService.Create(model.CreateSiparis);
 
 			return RedirectToAction("Index");

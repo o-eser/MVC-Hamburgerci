@@ -1,5 +1,3 @@
-using Autofac.Extensions.DependencyInjection;
-using Autofac;
 using Hamburgerci.Application.IoC;
 using Hamburgerci.Application.Services.Abstract;
 using Hamburgerci.Application.Services.Concrete;
@@ -13,6 +11,8 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.EntityFrameworkCore;
 using Hamburgerci.Repositories.Data;
+using Autofac.Extensions.DependencyInjection;
+using Autofac;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -20,14 +20,10 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllersWithViews();
 
 builder.Services.AddDbContext<AppDbContext>(options => options.UseSqlServer(
-    builder.Configuration.GetConnectionString("DefaultConnection")),ServiceLifetime.Scoped);
+    builder.Configuration.GetConnectionString("DefaultConnection")));
 
 
-builder.Host.UseServiceProviderFactory(new AutofacServiceProviderFactory());
-builder.Host.ConfigureContainer<ContainerBuilder>(builder =>
-{
-	builder.RegisterModule(new DependencyResolver());
-});
+
 
 builder.Services.AddHttpContextAccessor();
 
@@ -51,7 +47,24 @@ builder.Services.ConfigureApplicationCookie(opt =>
 });
 
 
+builder.Services.AddScoped<ISiparisRepository, SiparisRepository>(); //Diyoruz ki ISiparisRepository gördü?ün yerde SiparisRepository kullan.
+builder.Services.AddScoped<ISiparisService, SiparisService>();
+builder.Services.AddScoped<IEkstraMalzemeRepository, EkstraMalzemeRepository>();
+builder.Services.AddScoped<IEkstraMalzemeService, EkstraMalzemeService>();
+builder.Services.AddScoped<IMenuService, MenuService>();
+builder.Services.AddScoped<IMenuRepository, MenuRepository>();
+builder.Services.AddScoped<IMenuSiparisRepository, MenuSiparisRepository>();
+builder.Services.AddScoped<IEkstraMalzemeSiparisRepository, EkstraMalzemeSiparisRepository>();
+builder.Services.AddScoped<IAppUserRepository, AppUserRepository>();
+builder.Services.AddScoped<IAppUserService, AppUserService>();
+builder.Services.AddScoped<IEmailSender, EmailSender>();
 
+
+//builder.Host.UseServiceProviderFactory(new AutofacServiceProviderFactory());
+//builder.Host.ConfigureContainer<ContainerBuilder>(builder =>
+//{
+//	builder.RegisterModule(new DependencyResolver());
+//});
 
 
 var app = builder.Build();

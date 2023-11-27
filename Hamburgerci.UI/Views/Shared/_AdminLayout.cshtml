@@ -25,11 +25,17 @@
                     
                 </h1>
                 <ul class="list-unstyled components mb-5">
+                    <li class="@(Context.Request.RouteValues["Controller"].ToString() == "Siparis" && Context.Request.RouteValues["Action"].ToString() == "Index" ? "active" : "")">
+                        <a asp-controller="Siparis" asp-action="Index"><span class="fa fa-home mr-3"></span> Ana Menü</a>
+                    </li>
                     <li class="@(Context.Request.RouteValues["Controller"].ToString() == "Menu" && Context.Request.RouteValues["Action"].ToString() == "Index" ? "active" : "")">
                         <a asp-controller="Menu" asp-action="Index"><span class="fa fa-utensils mr-3"></span> Menüler</a>
                     </li>
                     <li class="@(Context.Request.RouteValues["Controller"].ToString() == "EkstraMalzeme" && Context.Request.RouteValues["Action"].ToString() == "Index" ? "active" : "")">
                         <a asp-controller="EkstraMalzeme" asp-action="Index"><span class="fa fa-plus mr-3"></span> Ekstra Malzemeler</a>
+                    </li>
+                    <li class="@(Context.Request.RouteValues["Controller"].ToString() == "Raporlamalar" && Context.Request.RouteValues["Action"].ToString() == "Index" ? "active" : "")">
+                        <a @* asp-controller="EkstraMalzeme" asp-action="Index" *@><span class="fa fa-chart-bar mr-3"></span> Raporlamalar</a>
                     </li>
                 </ul>
 
