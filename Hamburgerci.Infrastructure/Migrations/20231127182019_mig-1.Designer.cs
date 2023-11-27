@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Hamburgerci.Infrastructure.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20231127102655_mig-1")]
+    [Migration("20231127182019_mig-1")]
     partial class mig1
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -191,9 +191,6 @@ namespace Hamburgerci.Infrastructure.Migrations
                     b.Property<DateTime?>("ModifiedDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("ParaBirimi")
-                        .HasColumnType("int");
-
                     b.HasKey("Id");
 
                     b.ToTable("EkstraMalzemeler");
@@ -225,9 +222,6 @@ namespace Hamburgerci.Infrastructure.Migrations
 
                     b.Property<DateTime?>("ModifiedDate")
                         .HasColumnType("datetime2");
-
-                    b.Property<int>("ParaBirimi")
-                        .HasColumnType("int");
 
                     b.HasKey("Id");
 

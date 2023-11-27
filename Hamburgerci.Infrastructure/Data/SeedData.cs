@@ -238,9 +238,8 @@ namespace Hamburgerci.Repositories.Data
 				await context.SaveChangesAsync();
 
 
-				//// Siparişleri oluştur
+				// Siparişleri oluştur
 				//List<Siparis> siparisler = new Faker<Siparis>()
-				//	.RuleFor(s => s.Id, f => f.IndexFaker)
 				//	.RuleFor(s => s.MenuBoyutu, f => f.PickRandom<MenuBoyutu>())
 				//	.RuleFor(s => s.SiparisAdeti, f => f.Random.Number(1, 5))
 				//	.RuleFor(s => s.ToplamTutar, (f, s) => CalculateTotalTutar(s.SiparisAdeti, f.PickRandom(menus), f.PickRandom(ekstraMalzemeler)))

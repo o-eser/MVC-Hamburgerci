@@ -189,9 +189,6 @@ namespace Hamburgerci.Infrastructure.Migrations
                     b.Property<DateTime?>("ModifiedDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("ParaBirimi")
-                        .HasColumnType("int");
-
                     b.HasKey("Id");
 
                     b.ToTable("EkstraMalzemeler");
@@ -223,9 +220,6 @@ namespace Hamburgerci.Infrastructure.Migrations
 
                     b.Property<DateTime?>("ModifiedDate")
                         .HasColumnType("datetime2");
-
-                    b.Property<int>("ParaBirimi")
-                        .HasColumnType("int");
 
                     b.HasKey("Id");
 

@@ -89,7 +89,7 @@ namespace Hamburgerci.UI.Controllers
         {
             if (ModelState.IsValid)
             {
-                AppUser appUser = await _userManager.FindByNameAsync(model.UserName); ;
+                AppUser appUser = await _userManager.FindByNameAsync(model.UserName);
                 if (appUser != null)
                 {
                     Microsoft.AspNetCore.Identity.SignInResult result = await _signInManager.PasswordSignInAsync(appUser.UserName, model.Password, false, false);

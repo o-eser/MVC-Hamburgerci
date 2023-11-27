@@ -7,6 +7,7 @@
 	</div>
 	<div class="card-body">
 		<form asp-action="SiparisEkle" asp-controller="Siparis" method="post">
+			<div asp-validation-summary="ModelOnly" class="text-danger"></div>
 			<div class="form-group">
 				<label asp-for="CreateSiparis.MenuBoyutu">Menu Boyutu:</label>
 				<select class="form-control" asp-for="CreateSiparis.MenuBoyutu" asp-items="@Html.GetEnumSelectList<MenuBoyutu>()"></select>
@@ -26,26 +27,27 @@
 								Menüler
 							</button>
 						</h2>
-						@for (int i = 0; i < Model.CreateSiparis.Menuler.Count; i++)
-						{
-							<div id="flush-collapseOne" class="accordion-collapse collapse" aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlush">
+						<div id="flush-collapseOne" class="accordion-collapse collapse" aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlush">
 
-								<div class="accordion-body">
-									<div class="container">
+							<div class="accordion-body">
+								<div class="container">
+
+									@for (int i = 0; i < Model.CreateSiparis.Menuler.Count; i++)
+									{
+
 										<div class="row ">
 											<input class="form-check-input me-1 col-4" type="checkbox" value="@Model.CreateSiparis.Menuler[i]" name="selectedMenu[@i].Id">
 											@Model.CreateSiparis.Menuler[i].MenuAdi
 											<input type="number" class="form-control col-4" asp-for="@Model.CreateSiparis.Menuler[i].Adet" />
 
 											<input type="hidden" class="form-control " asp-for="@Model.CreateSiparis.Menuler[i].Id" />
-											<input type="hidden" class="form-control " asp-for="@Model.CreateSiparis.Menuler[i].ParaBirimi" />
 											<input type="hidden" class="form-control " asp-for="@Model.CreateSiparis.Menuler[i].Fiyati" />
 											<input type="hidden" class="form-control " asp-for="@Model.CreateSiparis.Menuler[i].MenuAdi" />
 										</div>
-									</div>
+									}
 								</div>
 							</div>
-						}
+						</div>
 					</div>
 
 
@@ -55,12 +57,12 @@
 								Ekstra Malzemeler
 							</button>
 						</h2>
-						@for (int i = 0; i < Model.CreateSiparis.EkstraMalzemeler.Count; i++)
-						{
-							<div id="flush-collapseTwo" class="accordion-collapse collapse" aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlush">
-								
-								<div class="accordion-body">
-									<div class="container">
+						<div id="flush-collapseTwo" class="accordion-collapse collapse" aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlush">
+
+							<div class="accordion-body">
+								<div class="container">
+									@for (int i = 0; i < Model.CreateSiparis.EkstraMalzemeler.Count; i++)
+									{
 										<div class="row ">
 											<input class="form-check-input me-1 col-4" type="checkbox" value="@Model.CreateSiparis.EkstraMalzemeler[i]" name="selectedEkmalzeme[@i].Id">
 											@Model.CreateSiparis.EkstraMalzemeler[i].Adi
@@ -68,14 +70,13 @@
 											<input type="number" class="form-control col-4" asp-for="@Model.CreateSiparis.EkstraMalzemeler[i].Adet" />
 
 											<input type="hidden" class="form-control " asp-for="@Model.CreateSiparis.EkstraMalzemeler[i].Id" />
-											<input type="hidden" class="form-control " asp-for="@Model.CreateSiparis.EkstraMalzemeler[i].ParaBirimi" />
 											<input type="hidden" class="form-control " asp-for="@Model.CreateSiparis.EkstraMalzemeler[i].Fiyati" />
 											<input type="hidden" class="form-control " asp-for="@Model.CreateSiparis.EkstraMalzemeler[i].Adi" />
 										</div>
-									</div>
+									}
 								</div>
 							</div>
-						}
+						</div>
 					</div>
 					<div class="container">
 						<span id="toplamTutar" class="text-end">Toplam Tutar: 0.00</span>
@@ -94,7 +95,7 @@
 	$(document).ready(function () {
 		// Her bir checkbox ve number input değiştiğinde toplam tutarı güncelle
 		$('input[type="checkbox"], input[type="number"],input[name="CreateSiparis.SiparisAdeti"],select[name="CreateSiparis.MenuBoyutu"]').change(function () {
-			
+
 			updateTotalPrice();
 		});
 
@@ -121,7 +122,7 @@
 
 			// Menü boyutunu al
 			var menuBoyutu = parseInt($('select[name="CreateSiparis.MenuBoyutu"]').val(), 10) || 0;
-			
+
 			// Menü boyutuna göre düzeltme faktörü uygula
 			if (menuBoyutu === 1) {
 				totalPrice *= 1; // Menü boyutu küçükse 1 ile çarp
@@ -131,7 +132,7 @@
 				totalPrice *= 1.25; // Menü boyutu büyükse 1.25 ile çarp
 			}
 
-			
+
 			// Toplam tutarı ekrana yazdır
 			$('#toplamTutar').text('Toplam Tutar: ' + totalPrice.toFixed(2));
 		}

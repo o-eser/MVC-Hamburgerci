@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -18,6 +19,8 @@ namespace Hamburgerci.Application.Models.DTOs
 			EkstraMalzemeler = new List<EkstraMalzemeVM>();
         }
 		public MenuBoyutu MenuBoyutu { get; set; }
+		[Required(ErrorMessage = "Lütfen sipariş adetini giriniz.")]
+		[Range(1, 1000, ErrorMessage = "Lütfen 1 ile 1000 arasında bir değer giriniz.")]
 		public int SiparisAdeti { get; set; }
 		public double ToplamTutar { get; }
 
