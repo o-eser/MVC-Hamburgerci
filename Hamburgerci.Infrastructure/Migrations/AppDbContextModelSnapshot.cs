@@ -249,7 +249,7 @@ namespace Hamburgerci.Infrastructure.Migrations
                     b.Property<DateTime?>("DeletedDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<int?>("KullaniciId")
+                    b.Property<int>("KullaniciId")
                         .HasColumnType("int");
 
                     b.Property<int>("MenuBoyutu")
@@ -446,7 +446,9 @@ namespace Hamburgerci.Infrastructure.Migrations
                 {
                     b.HasOne("Hamburgerci.Entities.Concrete.AppUser", "Kullanici")
                         .WithMany("Siparisler")
-                        .HasForeignKey("KullaniciId");
+                        .HasForeignKey("KullaniciId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Kullanici");
                 });

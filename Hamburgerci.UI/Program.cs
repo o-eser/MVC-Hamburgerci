@@ -1,3 +1,6 @@
+using Autofac.Extensions.DependencyInjection;
+using Autofac;
+using Hamburgerci.Application.IoC;
 using Hamburgerci.Application.Services.Abstract;
 using Hamburgerci.Application.Services.Concrete;
 using Hamburgerci.Domain.Repositories;
@@ -9,6 +12,7 @@ using Hamburgerci.Repositories.Context;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.EntityFrameworkCore;
+using Hamburgerci.Repositories.Data;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -18,24 +22,21 @@ builder.Services.AddControllersWithViews();
 builder.Services.AddDbContext<AppDbContext>(options => options.UseSqlServer(
     builder.Configuration.GetConnectionString("DefaultConnection")),ServiceLifetime.Scoped);
 
-builder.Services.AddScoped<ISiparisRepository, SiparisRepository>(); //Diyoruz ki ISiparisRepository gördüðün yerde SiparisRepository kullan.
-builder.Services.AddScoped<ISiparisService, SiparisService>();
-builder.Services.AddScoped<IEkstraMalzemeRepository, EkstraMalzemeRepository>();
-builder.Services.AddScoped<IEkstraMalzemeService, EkstraMalzemeService>();
-builder.Services.AddScoped<IMenuService, MenuService>();
-builder.Services.AddScoped<IMenuRepository, MenuRepository>();
-builder.Services.AddScoped<IMenuSiparisRepository, MenuSiparisRepository>();
-builder.Services.AddScoped<IEkstraMalzemeSiparisRepository, EkstraMalzemeSiparisRepository>();
-builder.Services.AddScoped<IAppUserRepository, AppUserRepository>();
-builder.Services.AddScoped<IAppUserService, AppUserService>();
-builder.Services.AddScoped<IEmailSender, EmailSender>();
+
+builder.Host.UseServiceProviderFactory(new AutofacServiceProviderFactory());
+builder.Host.ConfigureContainer<ContainerBuilder>(builder =>
+{
+	builder.RegisterModule(new DependencyResolver());
+});
+
+builder.Services.AddHttpContextAccessor();
 
 builder.Services.AddIdentity<AppUser, IdentityRole<int>>(opt =>
 {
     opt.SignIn.RequireConfirmedEmail = true;
     opt.SignIn.RequireConfirmedPhoneNumber = false;
     opt.SignIn.RequireConfirmedAccount = false;
-    opt.User.RequireUniqueEmail = false;
+    opt.User.RequireUniqueEmail = true;
     opt.Password.RequireUppercase = false;
     opt.Password.RequireNonAlphanumeric = false;
     opt.Password.RequiredLength = 3;
@@ -71,9 +72,8 @@ app.UseRouting();
 app.UseAuthentication();
 app.UseAuthorization();
 
-//app.UseSession();
 
-//SeedData.Seed(app);
+SeedData.Seed(app);
 
 app.MapControllerRoute(
     name: "default",

@@ -24,23 +24,52 @@ namespace Hamburgerci.Application.Services.Concrete
         private readonly IMenuSiparisRepository _msRepository;
         private readonly IEkstraMalzemeSiparisRepository _esRepository;
 
-        public SiparisService(ISiparisRepository siparisRepository, IMenuRepository menuRepository, IEkstraMalzemeRepository ekstraMalzemeRepository, IMenuSiparisRepository menuSiparisRepository, IEkstraMalzemeSiparisRepository esRepository)
-        {
-            _siparisRepository = siparisRepository;
-            _menuRepository = menuRepository;
-            _ekstraMalzemeRepository = ekstraMalzemeRepository;
-            _msRepository = menuSiparisRepository;
-            _esRepository = esRepository;
-        }
+        private readonly IAppUserService _appUserService;
+
+		public SiparisService(ISiparisRepository siparisRepository, IMenuRepository menuRepository, IEkstraMalzemeRepository ekstraMalzemeRepository, IMenuSiparisRepository menuSiparisRepository, IEkstraMalzemeSiparisRepository esRepository, IAppUserService appUserService)
+		{
+			_siparisRepository = siparisRepository;
+			_menuRepository = menuRepository;
+			_ekstraMalzemeRepository = ekstraMalzemeRepository;
+			_msRepository = menuSiparisRepository;
+			_esRepository = esRepository;
+			_appUserService = appUserService;
+		}
 
 
-        public async Task Create(CreateSiparisDTO model)
+		public async Task Create(CreateSiparisDTO model)
         {
-            Siparis siparis = new Siparis
+			#region toplam tutar hesaplama
+			var selectedMenuler = model.Menuler?.Where(m => m.Adet > 0) ?? Enumerable.Empty<MenuVM>();
+			var selectedEkstraMalzemeler = model.EkstraMalzemeler?.Where(e => e.Adet > 0) ?? Enumerable.Empty<EkstraMalzemeVM>();
+
+			// menü ve ekstra malzeme toplam tutarı 
+			double toplamTutar = selectedMenuler.Sum(m => m.Adet * m.Fiyati) +
+								 selectedEkstraMalzemeler.Sum(e => e.Adet * e.Fiyati);
+            switch (model.MenuBoyutu)
             {
+                case MenuBoyutu.Kucuk: 
+                    toplamTutar=toplamTutar * 1;
+					break;
+                case MenuBoyutu.Orta:
+					toplamTutar = toplamTutar * 1.15;
+					break;
+                case MenuBoyutu.Buyuk:
+					toplamTutar = toplamTutar * 1.25;
+					break;
+                default:
+                    break;
+            }
+			#endregion
+
+
+
+			Siparis siparis = new Siparis
+            {
+                KullaniciId =await _appUserService.GetUserId(),
                 MenuBoyutu = model.MenuBoyutu,
                 SiparisAdeti = model.SiparisAdeti,
-                ToplamTutar = model.ToplamTutar,
+                ToplamTutar= toplamTutar*model.SiparisAdeti,
                 CreatedDate = DateTime.Now,
                 DataStatus = DataStatus.Inserted
             };
@@ -105,8 +134,7 @@ namespace Hamburgerci.Application.Services.Concrete
                 {
                     Id = x.Id,
                     Adi = x.Adi,
-                    Fiyati = x.Fiyati,
-                    ParaBirimi = x.ParaBirimi
+                    Fiyati = x.Fiyati
                 },
                    x => x.DataStatus != DataStatus.Deleted) as List<EkstraMalzemeVM>,
 
@@ -114,8 +142,7 @@ namespace Hamburgerci.Application.Services.Concrete
                 {
                     Id = x.Id,
                     MenuAdi = x.MenuAdi,
-                    MenuFiyati = x.MenuFiyati,
-                    ParaBirimi = x.ParaBirimi
+                    Fiyati = x.MenuFiyati
                 }, x => x.DataStatus != DataStatus.Deleted) as List<MenuVM>
             };
 
@@ -191,7 +218,7 @@ namespace Hamburgerci.Application.Services.Concrete
             //    ParaBirimi = x.ParaBirimi
             //}, x => x.DataStatus != DataStatus.Deleted) as List<EkstraMalzemeVM>;
 
-
+            var kullaniciId = await _appUserService.GetUserId();
             var siparisler = await _siparisRepository.GetFilteredList(x => new UpdateSiparisDTO
             {
                 Id = x.Id,
@@ -211,7 +238,7 @@ namespace Hamburgerci.Application.Services.Concrete
                     MenuAdi = x.Menu.MenuAdi
                 }).ToList()
             },
-            x => x.DataStatus != DataStatus.Deleted,
+            x => x.DataStatus != DataStatus.Deleted &&x.KullaniciId== kullaniciId,
             include: x => x.Include(x => x.EkstraMalzemeSiparisler).
                                         ThenInclude(x => x.EkstraMalzeme)
             .Include(x => x.MenuSiparisler)
@@ -227,8 +254,7 @@ namespace Hamburgerci.Application.Services.Concrete
                 {
                     Id = x.Id,
                     MenuAdi = x.MenuAdi,
-                    MenuFiyati = x.MenuFiyati,
-                    ParaBirimi = x.ParaBirimi
+                    Fiyati = x.MenuFiyati,
                 }, x => x.DataStatus != DataStatus.Deleted) as List<MenuVM>;
                 siparis.Menuler = m;
 
@@ -238,8 +264,7 @@ namespace Hamburgerci.Application.Services.Concrete
                 {
                     Id = x.Id,
                     Adi = x.Adi,
-                    Fiyati = x.Fiyati,
-                    ParaBirimi = x.ParaBirimi
+                    Fiyati = x.Fiyati
                 }, x => x.DataStatus != DataStatus.Deleted) as List<EkstraMalzemeVM>; ;
 
                 siparis.EkstraMalzemeler = e;

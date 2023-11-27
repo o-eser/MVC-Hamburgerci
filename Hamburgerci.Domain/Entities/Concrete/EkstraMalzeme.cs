@@ -9,7 +9,6 @@ namespace Hamburgerci.Entities.Concrete
         public int Id { get; set; }
         public string Adi { get; set; }
         public double Fiyati { get; set; }
-        public ParaBirimi ParaBirimi { get; set; }
 
         public ICollection<EkstraMalzemeSiparis> EkstraMalzemeSiparisler { get; set; }
     }

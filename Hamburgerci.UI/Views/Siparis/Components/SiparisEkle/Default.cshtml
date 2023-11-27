@@ -39,7 +39,7 @@
 
 											<input type="hidden" class="form-control " asp-for="@Model.CreateSiparis.Menuler[i].Id" />
 											<input type="hidden" class="form-control " asp-for="@Model.CreateSiparis.Menuler[i].ParaBirimi" />
-											<input type="hidden" class="form-control " asp-for="@Model.CreateSiparis.Menuler[i].MenuFiyati" />
+											<input type="hidden" class="form-control " asp-for="@Model.CreateSiparis.Menuler[i].Fiyati" />
 											<input type="hidden" class="form-control " asp-for="@Model.CreateSiparis.Menuler[i].MenuAdi" />
 										</div>
 									</div>
@@ -77,12 +77,64 @@
 							</div>
 						}
 					</div>
-
+					<div class="container">
+						<span id="toplamTutar" class="text-end">Toplam Tutar: 0.00</span>
+					</div>
 				</div>
 			</div>
-			<button type="submit" class="btn-primary btn-block">Create</button>
+			<button type="submit" class="btn-primary btn-block">Ekle</button>
 		</form>
 	</div>
 	<div class="card-footer">
 	</div>
 </div>
+
+
+<script>
+	$(document).ready(function () {
+		// Her bir checkbox ve number input değiştiğinde toplam tutarı güncelle
+		$('input[type="checkbox"], input[type="number"],input[name="CreateSiparis.SiparisAdeti"],select[name="CreateSiparis.MenuBoyutu"]').change(function () {
+			
+			updateTotalPrice();
+		});
+
+		// Toplam tutarı güncelleyen fonksiyon
+		function updateTotalPrice() {
+			var totalPrice = 0;
+
+			// Seçili checkbox'ları tarayarak toplam tutarı hesapla
+			$('input[type="checkbox"]:checked').each(function () {
+				var adetInput = $(this).closest('.row').find('input[type="number"]');
+				var adet = parseInt(adetInput.val(), 10) || 0;
+
+				var fiyatInput = $(this).closest('.row').find('input[type="hidden"][name$=".Fiyati"]');
+				var fiyat = parseFloat(fiyatInput.val()) || 0;
+
+				totalPrice += adet * fiyat;
+			});
+
+			// Sipariş adedini al
+			var siparisAdeti = parseInt($('input[name="CreateSiparis.SiparisAdeti"]').val(), 10) || 0;
+
+			// Toplam tutarı sipariş adedine göre düzenle
+			totalPrice *= siparisAdeti;
+
+			// Menü boyutunu al
+			var menuBoyutu = parseInt($('select[name="CreateSiparis.MenuBoyutu"]').val(), 10) || 0;
+			
+			// Menü boyutuna göre düzeltme faktörü uygula
+			if (menuBoyutu === 1) {
+				totalPrice *= 1; // Menü boyutu küçükse 1 ile çarp
+			} else if (menuBoyutu === 2) {
+				totalPrice *= 1.15; // Menü boyutu 2 ise 1.15 ile çarp
+			} else if (menuBoyutu === 3) {
+				totalPrice *= 1.25; // Menü boyutu büyükse 1.25 ile çarp
+			}
+
+			
+			// Toplam tutarı ekrana yazdır
+			$('#toplamTutar').text('Toplam Tutar: ' + totalPrice.toFixed(2));
+		}
+	});
+</script>
+

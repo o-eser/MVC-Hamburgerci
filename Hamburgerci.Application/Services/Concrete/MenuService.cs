@@ -26,7 +26,6 @@ namespace Hamburgerci.Application.Services.Concrete
 			{
 				MenuAdi = model.MenuAdi,
 				MenuFiyati = model.MenuFiyati,
-				ParaBirimi = model.ParaBirimi
 			};
 
 
@@ -59,7 +58,6 @@ namespace Hamburgerci.Application.Services.Concrete
 			{
 				MenuAdi= x.MenuAdi,
 				MenuFiyati = x.MenuFiyati,
-				ParaBirimi = x.ParaBirimi,
 				Id = x.Id,
 			}, g => g.Id == id && g.DataStatus != DataStatus.Deleted);
 		}
@@ -77,7 +75,6 @@ namespace Hamburgerci.Application.Services.Concrete
 
 			menu.MenuAdi = model.MenuAdi;
 			menu.MenuFiyati = model.MenuFiyati;
-			menu.ParaBirimi = model.ParaBirimi;
 			menu.ModifiedDate = DateTime.Now;
 			menu.DataStatus = DataStatus.Updated;
 
@@ -91,7 +88,6 @@ namespace Hamburgerci.Application.Services.Concrete
 			{
 				MenuAdi = x.MenuAdi,
 				MenuFiyati = x.MenuFiyati,
-				ParaBirimi = x.ParaBirimi,
 				Id = x.Id,
 			}, g => g.DataStatus != DataStatus.Deleted) as List<MenuDTO>;
 		}
@@ -102,7 +98,6 @@ namespace Hamburgerci.Application.Services.Concrete
 			{
 				MenuAdi = x.MenuAdi,
 				MenuFiyati = x.MenuFiyati,
-				ParaBirimi = x.ParaBirimi,
 				Id = x.Id,
 			}, g => g.MenuAdi.Contains(searchText) && g.DataStatus != DataStatus.Deleted) as List<MenuDTO>;
 		}

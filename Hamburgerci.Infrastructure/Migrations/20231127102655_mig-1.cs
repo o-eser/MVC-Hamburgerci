@@ -30,8 +30,6 @@ namespace Hamburgerci.Infrastructure.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    FirstName = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Password = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     ModifiedDate = table.Column<DateTime>(type: "datetime2", nullable: true),
                     DeletedDate = table.Column<DateTime>(type: "datetime2", nullable: true),
@@ -209,7 +207,7 @@ namespace Hamburgerci.Infrastructure.Migrations
                     MenuBoyutu = table.Column<int>(type: "int", nullable: false),
                     SiparisAdeti = table.Column<int>(type: "int", nullable: false),
                     ToplamTutar = table.Column<double>(type: "float", nullable: true),
-                    KullaniciId = table.Column<int>(type: "int", nullable: true),
+                    KullaniciId = table.Column<int>(type: "int", nullable: false),
                     CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     ModifiedDate = table.Column<DateTime>(type: "datetime2", nullable: true),
                     DataStatus = table.Column<int>(type: "int", nullable: false),
@@ -222,7 +220,8 @@ namespace Hamburgerci.Infrastructure.Migrations
                         name: "FK_Siparisler_AspNetUsers_KullaniciId",
                         column: x => x.KullaniciId,
                         principalTable: "AspNetUsers",
-                        principalColumn: "Id");
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
