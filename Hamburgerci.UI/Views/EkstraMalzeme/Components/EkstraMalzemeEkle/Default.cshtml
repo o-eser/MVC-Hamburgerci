@@ -13,7 +13,7 @@
 
 			<div class="form-group">
 				<label asp-for="EkstraMalzeme.Fiyati">Ekstra Malzeme Fiyatı:</label>
-				<input type="text" class="form-control" asp-for="EkstraMalzeme.Fiyati" />
+				<input type="number" class="form-control" asp-for="EkstraMalzeme.Fiyati" min="1" />
 			</div>
 			<button type="submit" class="btn-primary btn-block">Ekle</button>
 		</form>
