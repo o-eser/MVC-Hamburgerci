@@ -18,7 +18,7 @@ namespace Hamburgerci.UI.Controllers
 			_siparisService = siparisService;
 		}
 
-		public async Task<IActionResult> Index( int pageSize = 5, int page = 1)
+		public async Task<IActionResult> Index(int pageSize = 5, int page = 1)
 		{
 			SiparisListingVM vm = new SiparisListingVM();
 			var siparisler = await _siparisService.GetAll();
@@ -32,10 +32,9 @@ namespace Hamburgerci.UI.Controllers
 		[HttpPost]
 		public async Task<IActionResult> SiparisEkle(SiparisListingVM model)
 		{
-			if (!ModelState.IsValid)
+			if (model.CreateSiparis.SiparisAdeti <= 0)
 			{
-				ModelState.AddModelError("", "Lütfen gerekli alanları doldurunuz.");
-				return RedirectToAction("Index",model);
+				return RedirectToAction("Index", model);
 			}
 			await _siparisService.Create(model.CreateSiparis);
 

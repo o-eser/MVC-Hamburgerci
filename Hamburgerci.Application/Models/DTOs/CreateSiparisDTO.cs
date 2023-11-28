@@ -27,7 +27,7 @@ namespace Hamburgerci.Application.Models.DTOs
         public List<MenuSiparisDTO> MenuSiparisler { get; set; } 
 		public List<EkstraMalzemeSiparisDTO> EkstraMalzemeSiparisler { get; set; }
 
-        public List<MenuVM> Menuler { get; set; }
-		public List<EkstraMalzemeVM> EkstraMalzemeler { get; set; }
+        public List<MenuVM>? Menuler { get; set; }
+		public List<EkstraMalzemeVM>? EkstraMalzemeler { get; set; }
 	}
 }

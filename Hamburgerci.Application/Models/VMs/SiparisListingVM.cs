@@ -15,8 +15,8 @@ namespace Hamburgerci.Application.Models.VMs
             
             Siparisler=new List<UpdateSiparisDTO>().ToPagedList(1, 1); ;
         }
-        public IPagedList<UpdateSiparisDTO> Siparisler { get; set; }
+        public IPagedList<UpdateSiparisDTO?> Siparisler { get; set; }
 
-        public CreateSiparisDTO CreateSiparis { get; set; }
+        public CreateSiparisDTO? CreateSiparis { get; set; }
 	}
 }
